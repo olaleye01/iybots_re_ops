@@ -1,0 +1,168 @@
+{
+    "actions": [],
+    "autoname": "format:PROP-{#####}",
+    "creation": "2026-03-05 18:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "property_name",
+        "property_type",
+        "status",
+        "column_break_1",
+        "location",
+        "developer",
+        "listing_id",
+        "section_break_pricing",
+        "price",
+        "column_break_price",
+        "currency",
+        "section_break_details",
+        "description",
+        "section_break_images",
+        "images"
+    ],
+    "fields": [
+        {
+            "fieldname": "property_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Property Name",
+            "reqd": 1
+        },
+        {
+            "fieldname": "property_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Property Type",
+            "options": "Land\nApartment\nDuplex\nCommercial",
+            "reqd": 1
+        },
+        {
+            "default": "Available",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Status",
+            "options": "Available\nReserved\nSold"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "location",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Location"
+        },
+        {
+            "fieldname": "developer",
+            "fieldtype": "Data",
+            "label": "Developer"
+        },
+        {
+            "fieldname": "listing_id",
+            "fieldtype": "Data",
+            "label": "Listing ID"
+        },
+        {
+            "fieldname": "section_break_pricing",
+            "fieldtype": "Section Break",
+            "label": "Pricing"
+        },
+        {
+            "fieldname": "price",
+            "fieldtype": "Currency",
+            "in_list_view": 1,
+            "label": "Price",
+            "options": "currency",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_price",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "NGN",
+            "fieldname": "currency",
+            "fieldtype": "Link",
+            "label": "Currency",
+            "options": "Currency"
+        },
+        {
+            "fieldname": "section_break_details",
+            "fieldtype": "Section Break",
+            "label": "Details"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Small Text",
+            "label": "Description"
+        },
+        {
+            "fieldname": "section_break_images",
+            "fieldtype": "Section Break",
+            "label": "Images"
+        },
+        {
+            "fieldname": "images",
+            "fieldtype": "Attach Image",
+            "label": "Property Image"
+        }
+    ],
+    "links": [],
+    "modified": "2026-03-05 18:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "Iybots Real Estate Ops",
+    "name": "Property",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales User",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "import": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "import": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "search_fields": "property_name,location,property_type,status",
+    "show_name_in_global_search": 1,
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "property_name",
+    "track_changes": 1
+}

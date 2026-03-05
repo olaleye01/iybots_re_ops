@@ -1,0 +1,44 @@
+[
+    {
+        "docstatus": 0,
+        "doctype": "Sales Stage",
+        "name": "Inquiry",
+        "stage_name": "Inquiry",
+        "module": "Iybots Real Estate Ops"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Sales Stage",
+        "name": "Site Visit",
+        "stage_name": "Site Visit",
+        "module": "Iybots Real Estate Ops"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Sales Stage",
+        "name": "Offer",
+        "stage_name": "Offer",
+        "module": "Iybots Real Estate Ops"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Sales Stage",
+        "name": "Payment Plan",
+        "stage_name": "Payment Plan",
+        "module": "Iybots Real Estate Ops"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Sales Stage",
+        "name": "Closed Won",
+        "stage_name": "Closed Won",
+        "module": "Iybots Real Estate Ops"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Sales Stage",
+        "name": "Closed Lost",
+        "stage_name": "Closed Lost",
+        "module": "Iybots Real Estate Ops"
+    }
+]

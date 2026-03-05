@@ -1,0 +1,44 @@
+[
+    {
+        "docstatus": 0,
+        "doctype": "Lead Source",
+        "name": "Instagram",
+        "source_name": "Instagram",
+        "module": "Iybots Real Estate Ops"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Lead Source",
+        "name": "Property Show",
+        "source_name": "Property Show",
+        "module": "Iybots Real Estate Ops"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Lead Source",
+        "name": "Referral - Agent",
+        "source_name": "Referral - Agent",
+        "module": "Iybots Real Estate Ops"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Lead Source",
+        "name": "Website",
+        "source_name": "Website",
+        "module": "Iybots Real Estate Ops"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Lead Source",
+        "name": "Walk-in",
+        "source_name": "Walk-in",
+        "module": "Iybots Real Estate Ops"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Lead Source",
+        "name": "WhatsApp",
+        "source_name": "WhatsApp",
+        "module": "Iybots Real Estate Ops"
+    }
+]

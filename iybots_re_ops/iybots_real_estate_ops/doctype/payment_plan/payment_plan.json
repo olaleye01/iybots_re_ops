@@ -1,0 +1,170 @@
+{
+    "actions": [],
+    "autoname": "format:PAY-{#####}",
+    "creation": "2026-03-05 18:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "plan_title",
+        "status",
+        "column_break_1",
+        "opportunity",
+        "customer",
+        "property",
+        "section_break_amounts",
+        "total_amount",
+        "column_break_amounts",
+        "total_paid",
+        "total_outstanding",
+        "section_break_milestones",
+        "milestones",
+        "section_break_notes",
+        "notes"
+    ],
+    "fields": [
+        {
+            "fieldname": "plan_title",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Plan Title",
+            "reqd": 1
+        },
+        {
+            "default": "Active",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Status",
+            "options": "Active\nCompleted\nCancelled"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "opportunity",
+            "fieldtype": "Link",
+            "in_standard_filter": 1,
+            "label": "Opportunity (Deal)",
+            "options": "Opportunity"
+        },
+        {
+            "fieldname": "customer",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Customer",
+            "options": "Customer"
+        },
+        {
+            "fieldname": "property",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Property",
+            "options": "Property"
+        },
+        {
+            "fieldname": "section_break_amounts",
+            "fieldtype": "Section Break",
+            "label": "Amounts"
+        },
+        {
+            "fieldname": "total_amount",
+            "fieldtype": "Currency",
+            "in_list_view": 1,
+            "label": "Total Amount",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_amounts",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "total_paid",
+            "fieldtype": "Currency",
+            "label": "Total Paid",
+            "read_only": 1
+        },
+        {
+            "fieldname": "total_outstanding",
+            "fieldtype": "Currency",
+            "label": "Total Outstanding",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_milestones",
+            "fieldtype": "Section Break",
+            "label": "Payment Milestones"
+        },
+        {
+            "fieldname": "milestones",
+            "fieldtype": "Table",
+            "label": "Milestones",
+            "options": "Payment Milestone",
+            "reqd": 1
+        },
+        {
+            "fieldname": "section_break_notes",
+            "fieldtype": "Section Break",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Small Text",
+            "label": "Notes"
+        }
+    ],
+    "links": [],
+    "modified": "2026-03-05 18:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "Iybots Real Estate Ops",
+    "name": "Payment Plan",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales User",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "import": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "import": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "search_fields": "plan_title,customer,status",
+    "show_name_in_global_search": 1,
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "plan_title",
+    "track_changes": 1
+}

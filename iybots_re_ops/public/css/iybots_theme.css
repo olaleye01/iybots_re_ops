@@ -1,0 +1,398 @@
+/* ============================================
+   FRAPPE MODERN THEME OVERRIDES
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap');
+
+:root {
+	/* Override Frappe's default variables */
+	--text-color: #334155;
+	--heading-color: #0F172A;
+	--bg-color: #F8FAFC;
+	--card-bg: #FFFFFF;
+	--border-color: #E2E8F0;
+	--primary: #2563EB;
+	--primary-light: #EFF6FF;
+
+	/* Custom additions */
+	--sidebar-bg: #0F172A;
+	--sidebar-text: #CBD5E1;
+	--sidebar-active: #334155;
+	--sidebar-accent: #3B82F6;
+	--radius-card: 12px;
+	--radius-btn: 8px;
+	--shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* Global font override */
+body,
+.frappe-control,
+.form-control,
+.btn,
+.navbar,
+.page-container,
+.widget,
+.desk-sidebar {
+	font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* Page background */
+body,
+.page-container,
+.container-fluid,
+.content {
+	background-color: var(--bg-color) !important;
+}
+
+/* ---- NAVBAR ---- */
+.navbar {
+	background: #FFFFFF !important;
+	border-bottom: 1px solid var(--border-color) !important;
+	box-shadow: none !important;
+	height: 64px;
+}
+
+.navbar .navbar-brand img {
+	height: 28px;
+}
+
+/* ---- SIDEBAR ---- */
+.layout-side-section,
+.desk-sidebar {
+	background: var(--sidebar-bg) !important;
+	width: 240px !important;
+	border-right: none !important;
+}
+
+.desk-sidebar .sidebar-menu a,
+.desk-sidebar .standard-sidebar-item a {
+	color: var(--sidebar-text) !important;
+	font-size: 14px;
+	font-weight: 500;
+	padding: 10px 16px;
+	border-radius: 8px;
+	margin: 2px 8px;
+	transition: all 0.15s ease;
+}
+
+.desk-sidebar .sidebar-menu a:hover,
+.desk-sidebar .standard-sidebar-item a:hover,
+.desk-sidebar .standard-sidebar-item.selected a:hover {
+	background: rgba(255, 255, 255, 0.06) !important;
+	color: #FFFFFF !important;
+}
+
+.desk-sidebar .sidebar-menu a.active,
+.desk-sidebar .standard-sidebar-item.selected a,
+.desk-sidebar .standard-sidebar-item a.selected {
+	background: var(--sidebar-active) !important;
+	color: #FFFFFF !important;
+	border-left: 3px solid var(--sidebar-accent);
+}
+
+.sidebar-label {
+	color: var(--sidebar-text) !important;
+	font-size: 11px !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.06em !important;
+	opacity: 0.6;
+	padding: 16px 16px 8px !important;
+}
+
+.desk-sidebar .standard-sidebar-item .sidebar-item-icon {
+	color: inherit !important;
+}
+
+/* ---- CARDS (Workspace Shortcuts, Number Cards) ---- */
+.widget.number-widget-box,
+.widget.shortcut-widget-box,
+.frappe-card {
+	background: var(--card-bg) !important;
+	border: 1px solid var(--border-color) !important;
+	border-radius: var(--radius-card) !important;
+	box-shadow: var(--shadow-card) !important;
+	transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.widget.number-widget-box:hover,
+.widget.shortcut-widget-box:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+	transform: translateY(-1px);
+}
+
+/* Number card values */
+.number-widget-box .widget-head .number {
+	font-size: 28px !important;
+	font-weight: 700 !important;
+	color: var(--heading-color) !important;
+	letter-spacing: -0.02em;
+}
+
+.number-widget-box .widget-head .widget-label {
+	font-size: 13px !important;
+	font-weight: 500 !important;
+	color: #64748B !important;
+	text-transform: uppercase;
+	letter-spacing: 0.025em;
+}
+
+/* ---- BUTTONS ---- */
+.btn-primary,
+.btn-primary-dark {
+	background-color: var(--primary) !important;
+	border: none !important;
+	border-radius: var(--radius-btn) !important;
+	font-weight: 600 !important;
+	font-size: 14px !important;
+	padding: 10px 20px !important;
+	box-shadow: 0 1px 2px rgba(37, 99, 235, 0.2) !important;
+	transition: all 0.15s ease !important;
+}
+
+.btn-primary:hover,
+.btn-primary-dark:hover {
+	background-color: #1D4ED8 !important;
+	box-shadow: 0 4px 8px rgba(37, 99, 235, 0.25) !important;
+	transform: translateY(-1px);
+}
+
+.btn-default,
+.btn-secondary {
+	background: #FFFFFF !important;
+	border: 1px solid var(--border-color) !important;
+	border-radius: var(--radius-btn) !important;
+	font-weight: 500 !important;
+	color: var(--text-color) !important;
+	transition: all 0.15s ease !important;
+}
+
+.btn-default:hover,
+.btn-secondary:hover {
+	background: #F8FAFC !important;
+	border-color: #CBD5E1 !important;
+}
+
+/* ---- FORM INPUTS ---- */
+.form-control,
+.input-with-feedback,
+.frappe-control .control-input input,
+.frappe-control .control-input select,
+.frappe-control .control-input textarea {
+	border: 1px solid var(--border-color) !important;
+	border-radius: var(--radius-btn) !important;
+	padding: 10px 14px !important;
+	font-size: 14px !important;
+	color: var(--heading-color) !important;
+	background: #FFFFFF !important;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.form-control:focus,
+.input-with-feedback:focus,
+.frappe-control .control-input input:focus {
+	border-color: var(--primary) !important;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12) !important;
+	outline: none !important;
+}
+
+/* ---- LIST VIEW ---- */
+.list-row {
+	border-bottom: 1px solid #F1F5F9 !important;
+	transition: background 0.15s ease;
+}
+
+.list-row:hover {
+	background: #F8FAFC !important;
+}
+
+.list-row .level-left .list-row--col {
+	font-size: 14px !important;
+	color: var(--text-color) !important;
+}
+
+.list-row-head {
+	background: #F8FAFC !important;
+	border-bottom: 2px solid var(--border-color) !important;
+}
+
+.list-row-head .list-row--col {
+	font-size: 11px !important;
+	font-weight: 600 !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.05em !important;
+	color: #64748B !important;
+}
+
+/* Status indicators */
+.indicator-pill {
+	border-radius: 9999px !important;
+	padding: 4px 12px !important;
+	font-size: 12px !important;
+	font-weight: 600 !important;
+}
+
+.indicator-pill.green {
+	background: #F0FDF4 !important;
+	color: #16A34A !important;
+}
+
+.indicator-pill.orange,
+.indicator-pill.yellow {
+	background: #FFFBEB !important;
+	color: #D97706 !important;
+}
+
+.indicator-pill.red {
+	background: #FEF2F2 !important;
+	color: #DC2626 !important;
+}
+
+.indicator-pill.blue {
+	background: #EFF6FF !important;
+	color: #2563EB !important;
+}
+
+.indicator-pill.gray,
+.indicator-pill.grey {
+	background: #F1F5F9 !important;
+	color: #64748B !important;
+}
+
+/* ---- PAGE HEADER ---- */
+.page-head {
+	background: transparent !important;
+	border-bottom: none !important;
+	padding: 16px 0 !important;
+}
+
+.page-head .page-title .title-text {
+	font-size: 24px !important;
+	font-weight: 700 !important;
+	color: var(--heading-color) !important;
+}
+
+/* ---- WORKSPACE ---- */
+.workspace-container {
+	padding: 24px 32px !important;
+}
+
+.widget-group {
+	margin-bottom: 24px !important;
+}
+
+.widget-group-head {
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	color: var(--heading-color) !important;
+	margin-bottom: 16px !important;
+}
+
+/* Shortcut cards (Quick Links) */
+.shortcut-widget-box .widget-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 20px !important;
+}
+
+.shortcut-widget-box .widget-label {
+	font-size: 14px !important;
+	font-weight: 600 !important;
+	color: var(--heading-color) !important;
+}
+
+.shortcut-widget-box .open-count {
+	font-size: 13px !important;
+	color: #64748B !important;
+	font-weight: 500 !important;
+}
+
+/* ---- MODAL / DIALOG ---- */
+.modal-content {
+	border-radius: 16px !important;
+	border: none !important;
+	box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important;
+}
+
+.modal-header {
+	border-bottom: 1px solid #F1F5F9 !important;
+	padding: 20px 24px !important;
+}
+
+.modal-body {
+	padding: 24px !important;
+}
+
+.modal-footer {
+	border-top: 1px solid #F1F5F9 !important;
+	padding: 16px 24px !important;
+}
+
+.modal-backdrop.show {
+	background: rgba(15, 23, 42, 0.5) !important;
+	backdrop-filter: blur(4px);
+}
+
+/* ---- FRAPPE CHART STYLING ---- */
+.frappe-chart .title {
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	fill: var(--heading-color) !important;
+}
+
+.frappe-chart .axis text {
+	font-size: 11px !important;
+	fill: #94A3B8 !important;
+}
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #CBD5E1;
+	border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #94A3B8;
+}
+
+/* ---- ANIMATIONS ---- */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.widget {
+	animation: fadeInUp 0.3s ease forwards;
+}
+
+.widget:nth-child(1) {
+	animation-delay: 0.05s;
+}
+
+.widget:nth-child(2) {
+	animation-delay: 0.10s;
+}
+
+.widget:nth-child(3) {
+	animation-delay: 0.15s;
+}
+
+.widget:nth-child(4) {
+	animation-delay: 0.20s;
+}

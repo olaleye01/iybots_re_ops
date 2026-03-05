@@ -1,0 +1,70 @@
+[
+    {
+        "docstatus": 0,
+        "doctype": "Number Card",
+        "name": "Total Properties",
+        "label": "Total Properties",
+        "document_type": "Property",
+        "function": "Count",
+        "is_public": 1,
+        "is_standard": 1,
+        "module": "Iybots Real Estate Ops",
+        "show_percentage_stats": 1,
+        "stats_time_interval": "Monthly"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Number Card",
+        "name": "Active Deals",
+        "label": "Active Deals",
+        "document_type": "Opportunity",
+        "filters_json": "[[\"Opportunity\",\"status\",\"in\",[\"Open\",\"Quotation\",\"Replied\"],false]]",
+        "function": "Count",
+        "is_public": 1,
+        "is_standard": 1,
+        "module": "Iybots Real Estate Ops",
+        "show_percentage_stats": 1,
+        "stats_time_interval": "Monthly"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Number Card",
+        "name": "Closed Deals This Month",
+        "label": "Closed Deals This Month",
+        "document_type": "Opportunity",
+        "filters_json": "[[\"Opportunity\",\"sales_stage\",\"=\",\"Closed Won\",false]]",
+        "function": "Count",
+        "is_public": 1,
+        "is_standard": 1,
+        "module": "Iybots Real Estate Ops",
+        "show_percentage_stats": 1,
+        "stats_time_interval": "Monthly"
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Number Card",
+        "name": "Total Outstanding",
+        "label": "Total Outstanding",
+        "document_type": "Payment Plan",
+        "aggregate_function_based_on": "total_outstanding",
+        "filters_json": "[[\"Payment Plan\",\"status\",\"!=\",\"Cancelled\",false]]",
+        "function": "Sum",
+        "is_public": 1,
+        "is_standard": 1,
+        "module": "Iybots Real Estate Ops",
+        "show_percentage_stats": 0
+    },
+    {
+        "docstatus": 0,
+        "doctype": "Number Card",
+        "name": "Agents Checked In Today",
+        "label": "Agents Checked In Today",
+        "document_type": "Agent Check-in",
+        "filters_json": "[[\"Agent Check-in\",\"check_in_time\",\"Timespan\",\"today\",false]]",
+        "function": "Count",
+        "is_public": 1,
+        "is_standard": 1,
+        "module": "Iybots Real Estate Ops",
+        "show_percentage_stats": 0
+    }
+]
