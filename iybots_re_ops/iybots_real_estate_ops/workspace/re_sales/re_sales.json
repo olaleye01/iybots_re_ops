@@ -1,7 +1,7 @@
 {
  "charts": [],
- "content": "[{\"id\":\"aB1C2dE3fG\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Sales CRM</span>\",\"col\":12}},{\"id\":\"hI4J5kL6mN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pipeline Board\",\"col\":6}},{\"id\":\"oP7Q8rS9tU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leads\",\"col\":6}},{\"id\":\"vW0X1yZ2aB\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quick Create</span>\",\"col\":12}},{\"id\":\"cD3E4fG5hI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Lead\",\"col\":4}},{\"id\":\"jK6L7mN8oP\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Opportunity\",\"col\":4}},{\"id\":\"qR9S0tU1vW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Property\",\"col\":4}},{\"id\":\"a0KUKVAUXi\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commisions\",\"col\":4}}]",
- "creation": "2026-03-06 12:54:04.606861",
+ "content": "[{\"id\":\"aB1C2dE3fG\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Sales CRM</span>\",\"col\":12}},{\"id\":\"hI4J5kL6mN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pipeline Board\",\"col\":6}},{\"id\":\"oP7Q8rS9tU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leads\",\"col\":6}},{\"id\":\"vW0X1yZ2aB\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quick Create</span>\",\"col\":12}},{\"id\":\"cD3E4fG5hI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Lead\",\"col\":4}},{\"id\":\"jK6L7mN8oP\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Opportunity\",\"col\":4}},{\"id\":\"qR9S0tU1vW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Property\",\"col\":4}},{\"id\":\"RUcS7W6MSJ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Client\",\"col\":4}}]",
+ "creation": "2026-03-06 16:02:03.713607",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
@@ -34,7 +34,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-03-06 15:00:49.131236",
+ "modified": "2026-03-06 16:13:27.580045",
  "modified_by": "Administrator",
  "module": "Iybots Real Estate Ops",
  "name": "RE Sales",
@@ -67,9 +67,8 @@
   {
    "color": "Grey",
    "doc_view": "List",
-   "format": "{} pending",
-   "label": "Commisions",
-   "link_to": "Commission Record",
+   "label": "Client",
+   "link_to": "Client",
    "stats_filter": "[]",
    "type": "DocType"
   },
