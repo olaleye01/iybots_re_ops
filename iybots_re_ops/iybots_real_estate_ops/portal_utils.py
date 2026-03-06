@@ -15,7 +15,7 @@ def require_client_or_redirect():
 	Returns the Client doc. Redirects to /login if guest, raises 403 if no client found.
 	"""
 	if frappe.session.user == "Guest":
-		frappe.local.flags.redirect_location = "/login?redirect-to=/portal"
+		frappe.local.flags.redirect_location = "/portal/login?redirect-to=/portal"
 		raise frappe.Redirect
 
 	client_name = frappe.db.get_value("Client", {"linked_user": frappe.session.user, "is_active": 1})

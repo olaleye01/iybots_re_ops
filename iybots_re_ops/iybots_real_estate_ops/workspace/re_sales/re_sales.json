@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"aB1C2dE3fG\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Sales CRM</span>\",\"col\":12}},{\"id\":\"hI4J5kL6mN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pipeline Board\",\"col\":6}},{\"id\":\"oP7Q8rS9tU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leads\",\"col\":6}},{\"id\":\"vW0X1yZ2aB\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quick Create</span>\",\"col\":12}},{\"id\":\"cD3E4fG5hI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Lead\",\"col\":4}},{\"id\":\"jK6L7mN8oP\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Opportunity\",\"col\":4}},{\"id\":\"qR9S0tU1vW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Property\",\"col\":4}},{\"id\":\"RUcS7W6MSJ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Client\",\"col\":4}}]",
+ "content": "[{\"id\":\"db-sales-header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">RE Sales Dashboard</span>\",\"col\":12}},{\"id\":\"db-sales-page\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RE Sales Dashboard\",\"col\":12}},{\"id\":\"hI4J5kL6mN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pipeline Board\",\"col\":6}},{\"id\":\"oP7Q8rS9tU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leads\",\"col\":6}},{\"id\":\"RUcS7W6MSJ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Client\",\"col\":6}}]",
  "creation": "2026-03-06 16:02:03.713607",
  "custom_blocks": [],
  "docstatus": 0,
@@ -57,18 +57,16 @@
  "sequence_id": 2.0,
  "shortcuts": [
   {
+   "color": "Blue",
+   "label": "RE Sales Dashboard",
+   "link_to": "re-sales-dashboard",
+   "type": "Page"
+  },
+  {
    "color": "Grey",
    "format": "{} Open Deals",
    "label": "Pipeline Board",
    "link_to": "Opportunity",
-   "stats_filter": "[]",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Client",
-   "link_to": "Client",
    "stats_filter": "[]",
    "type": "DocType"
   },
@@ -82,25 +80,9 @@
   },
   {
    "color": "Grey",
-   "format": "",
-   "label": "New Lead",
-   "link_to": "Lead",
-   "stats_filter": "[]",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "format": "",
-   "label": "New Opportunity",
-   "link_to": "Opportunity",
-   "stats_filter": "[]",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "format": "",
-   "label": "New Property",
-   "link_to": "Property",
+   "doc_view": "List",
+   "label": "Client",
+   "link_to": "Client",
    "stats_filter": "[]",
    "type": "DocType"
   }

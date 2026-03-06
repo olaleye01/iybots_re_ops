@@ -1,0 +1,5 @@
+/* RE Operations Dashboard — page-specific overrides */
+
+#ops-projects-inner .db-project-grid {
+	grid-template-columns: repeat(2, 1fr);
+}

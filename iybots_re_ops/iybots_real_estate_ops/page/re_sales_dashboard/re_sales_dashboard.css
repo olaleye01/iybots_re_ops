@@ -1,0 +1,6 @@
+/* RE Sales Dashboard — page-specific overrides (shared styles in dashboard.css) */
+
+/* Ensure the funnel card has enough height */
+#db-funnel-inner {
+	min-height: 220px;
+}

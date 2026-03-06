@@ -21,7 +21,6 @@ def get_context(context):
 		["name", "property_name", "property_type", "status", "location", "price",
 		 "developer", "description", "images", "project", "assigned_agent"],
 		as_dict=True,
-		ignore_permissions=True,
 	)
 
 	if not prop:

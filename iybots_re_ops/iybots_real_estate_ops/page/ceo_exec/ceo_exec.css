@@ -1,0 +1,5 @@
+/* CEO Dashboard — page-specific overrides */
+
+#ceo-pipeline-inner {
+	min-height: 200px;
+}

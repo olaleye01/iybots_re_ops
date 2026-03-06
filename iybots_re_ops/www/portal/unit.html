@@ -2,71 +2,221 @@
 {% block title %}{{ prop.property_name }}{% endblock %}
 
 {% block content %}
-<div class="portal-page">
-  <a href="/portal/units" class="back-link">← My Units</a>
 
-  {% if prop.images %}
-    <img src="{{ prop.images }}" class="unit-detail-img" alt="{{ prop.property_name }}" />
-  {% elif prop.project_doc and prop.project_doc.banner_image %}
-    <img src="{{ prop.project_doc.banner_image }}" class="unit-detail-img" alt="Project" />
-  {% endif %}
+<!-- Breadcrumb back nav -->
+<div class="unit-back-nav">
+  <a href="/portal/units" class="unit-back-link">
+    <i data-lucide="chevron-left"></i>
+    My Units
+  </a>
+  <span class="unit-back-sep">/</span>
+  <span class="unit-back-current">{{ prop.property_name }}</span>
+</div>
 
-  <div class="detail-header">
-    <h1>{{ prop.property_name }}</h1>
-    <span class="badge badge-{{ 'green' if prop.status == 'Available' else 'blue' if prop.status == 'Reserved' else 'grey' }}">{{ prop.status }}</span>
-  </div>
+<!-- Hero image -->
+{% if prop.images or (prop.project_doc and prop.project_doc.banner_image) %}
+<div class="unit-hero">
+  <img src="{{ prop.images or prop.project_doc.banner_image }}" alt="{{ prop.property_name }}" />
+</div>
+{% endif %}
 
-  <div class="detail-grid">
-    <div class="detail-item">
-      <div class="detail-label">Type</div>
-      <div class="detail-value">{{ prop.property_type or '—' }}</div>
+<!-- Property header card -->
+<div class="card unit-header-card">
+  <div class="card-body">
+    <div class="unit-title-row">
+      <div class="unit-title-info">
+        <h1 class="unit-detail-name">{{ prop.property_name }}</h1>
+        <div class="unit-detail-meta">
+          {% if prop.property_type %}
+          <span class="unit-meta-chip">
+            <i data-lucide="home"></i>
+            {{ prop.property_type }}
+          </span>
+          {% endif %}
+          {% if prop.location %}
+          <span class="unit-meta-chip">
+            <i data-lucide="map-pin"></i>
+            {{ prop.location }}
+          </span>
+          {% endif %}
+          {% if prop.developer %}
+          <span class="unit-meta-chip">
+            <i data-lucide="building"></i>
+            {{ prop.developer }}
+          </span>
+          {% endif %}
+        </div>
+      </div>
+      <span class="badge {% if prop.status == 'Sold' %}badge-success{% elif prop.status == 'Reserved' %}badge-info{% else %}badge-grey{% endif %} badge-status">
+        {{ prop.status }}
+      </span>
     </div>
-    <div class="detail-item">
-      <div class="detail-label">Location</div>
-      <div class="detail-value">{{ prop.location or '—' }}</div>
-    </div>
-    <div class="detail-item">
-      <div class="detail-label">Purchase Price</div>
-      <div class="detail-value highlight">{{ prop.price_fmt }}</div>
-    </div>
-    {% if prop.developer %}
-    <div class="detail-item">
-      <div class="detail-label">Developer</div>
-      <div class="detail-value">{{ prop.developer }}</div>
-    </div>
-    {% endif %}
-  </div>
 
-  {% if prop.project_doc %}
-  <div class="portal-section">
-    <h2>Project: {{ prop.project_doc.project_name }}</h2>
-    <p>{{ prop.project_doc.location }}</p>
-    {% if prop.project_doc.description %}
-      <p class="muted">{{ prop.project_doc.description }}</p>
-    {% endif %}
-  </div>
-  {% endif %}
-
-  {% if prop.description %}
-  <div class="portal-section">
-    <h2>About this unit</h2>
-    <p>{{ prop.description }}</p>
-  </div>
-  {% endif %}
-
-  {% if prop.agent_name %}
-  <div class="portal-section agent-card">
-    <div class="agent-icon">👤</div>
-    <div>
-      <div class="agent-label">Your Agent</div>
-      <div class="agent-name">{{ prop.agent_name }}</div>
-      <a href="mailto:{{ prop.agent_email }}" class="agent-contact">{{ prop.agent_email }}</a>
+    <!-- Purchase price row -->
+    <div class="unit-price-row">
+      <div class="unit-price-block">
+        <div class="unit-price-label">Purchase Price</div>
+        <div class="unit-price-value">{{ prop.price_fmt }}</div>
+      </div>
+      <a href="/portal/payments" class="unit-cta-primary">
+        <i data-lucide="credit-card"></i>
+        View Payment Schedule
+      </a>
     </div>
-  </div>
-  {% endif %}
-
-  <div class="portal-section">
-    <a href="/portal/payments" class="btn-portal">View Payment Schedule →</a>
   </div>
 </div>
+
+<!-- Two-column detail + actions layout -->
+<div class="unit-detail-layout">
+
+  <!-- Left column: cards -->
+  <div class="unit-detail-main">
+
+    <!-- Property Details -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Property Details</span>
+      </div>
+      <div class="card-body">
+        <div class="unit-fields-grid">
+          <div class="unit-field">
+            <div class="unit-field-label">Type</div>
+            <div class="unit-field-value">{{ prop.property_type or '—' }}</div>
+          </div>
+          <div class="unit-field">
+            <div class="unit-field-label">Location</div>
+            <div class="unit-field-value">{{ prop.location or '—' }}</div>
+          </div>
+          <div class="unit-field">
+            <div class="unit-field-label">Status</div>
+            <div class="unit-field-value">
+              <span class="badge {% if prop.status == 'Sold' %}badge-success{% elif prop.status == 'Reserved' %}badge-info{% else %}badge-grey{% endif %}">
+                {{ prop.status }}
+              </span>
+            </div>
+          </div>
+          {% if prop.developer %}
+          <div class="unit-field">
+            <div class="unit-field-label">Developer</div>
+            <div class="unit-field-value">{{ prop.developer }}</div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% if prop.description %}
+    <!-- About -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">About This Unit</span>
+      </div>
+      <div class="card-body">
+        <p class="unit-description">{{ prop.description }}</p>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if prop.project_doc %}
+    <!-- Project -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Project</span>
+        <a href="/portal/progress" class="card-link">View Progress →</a>
+      </div>
+      <div class="card-body">
+        <div class="unit-project-row">
+          <div class="unit-project-icon">
+            <i data-lucide="hard-hat"></i>
+          </div>
+          <div class="unit-project-details">
+            <div class="unit-project-name">{{ prop.project_doc.project_name }}</div>
+            {% if prop.project_doc.location %}
+            <div class="unit-project-location">
+              <i data-lucide="map-pin"></i>
+              {{ prop.project_doc.location }}
+            </div>
+            {% endif %}
+            {% if prop.project_doc.status %}
+            <div style="margin-top: var(--space-2);">
+              <span class="badge badge-info">{{ prop.project_doc.status }}</span>
+            </div>
+            {% endif %}
+            {% if prop.project_doc.description %}
+            <p class="unit-project-desc">{{ prop.project_doc.description }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div><!-- /unit-detail-main -->
+
+  <!-- Right column: agent + quick links -->
+  <div class="unit-detail-aside">
+
+    {% if prop.agent_name %}
+    <!-- Agent card -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Your Agent</span>
+      </div>
+      <div class="card-body">
+        <div class="unit-agent-row">
+          <div class="unit-agent-avatar">{{ (prop.agent_name or 'A')[0] | upper }}</div>
+          <div class="unit-agent-info">
+            <div class="unit-agent-name">{{ prop.agent_name }}</div>
+            <div class="unit-agent-email">{{ prop.agent_email }}</div>
+          </div>
+        </div>
+        <a href="mailto:{{ prop.agent_email }}" class="unit-agent-btn">
+          <i data-lucide="mail"></i>
+          Send Email
+        </a>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Quick actions -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Quick Links</span>
+      </div>
+      <div class="card-body" style="padding: var(--space-2) 0;">
+        <a href="/portal/payments" class="unit-quick-link">
+          <span class="unit-quick-icon unit-quick-icon-primary">
+            <i data-lucide="credit-card"></i>
+          </span>
+          <span class="unit-quick-label">Payments</span>
+          <i data-lucide="chevron-right" class="unit-quick-arrow"></i>
+        </a>
+        <a href="/portal/progress" class="unit-quick-link">
+          <span class="unit-quick-icon unit-quick-icon-warning">
+            <i data-lucide="hard-hat"></i>
+          </span>
+          <span class="unit-quick-label">Construction Progress</span>
+          <i data-lucide="chevron-right" class="unit-quick-arrow"></i>
+        </a>
+        <a href="/portal/documents" class="unit-quick-link">
+          <span class="unit-quick-icon unit-quick-icon-muted">
+            <i data-lucide="file-text"></i>
+          </span>
+          <span class="unit-quick-label">Documents</span>
+          <i data-lucide="chevron-right" class="unit-quick-arrow"></i>
+        </a>
+        <a href="/portal/support" class="unit-quick-link" style="border-bottom: none;">
+          <span class="unit-quick-icon unit-quick-icon-muted">
+            <i data-lucide="headphones"></i>
+          </span>
+          <span class="unit-quick-label">Support</span>
+          <i data-lucide="chevron-right" class="unit-quick-arrow"></i>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /unit-detail-aside -->
+
+</div><!-- /unit-detail-layout -->
+
 {% endblock %}

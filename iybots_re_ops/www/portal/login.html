@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }}</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #FFFFFF;
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Page wrapper ── */
+    .login-page {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 24px 0;
+    }
+
+    /* ── Corner accent marks ── */
+    .login-corners {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      margin-bottom: 8px;
+    }
+    .corner {
+      position: absolute;
+      display: flex;
+      gap: 4px;
+    }
+    .corner-tl { top: 0; left: 0; flex-direction: row; align-items: flex-end; }
+    .corner-tr { top: 0; right: 0; flex-direction: row; align-items: flex-start; }
+
+    /* Building block shapes */
+    .blk { background: #111827; display: block; }
+    /* Top-left: tall + short */
+    .corner-tl .blk-a { width: 22px; height: 40px; }
+    .corner-tl .blk-b { width: 13px; height: 22px; }
+    /* Top-right: two squares */
+    .corner-tr .blk-a { width: 22px; height: 22px; }
+    .corner-tr .blk-b { width: 13px; height: 13px; align-self: flex-start; margin-top: 4px; }
+
+    /* ── Brand header card ── */
+    .login-brand-card {
+      width: 100%;
+      max-width: 520px;
+      background: #F3F4F6;
+      border-radius: 12px;
+      padding: 28px 32px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .login-brand-name {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 6px;
+    }
+    .login-brand-tagline {
+      font-size: 14px;
+      color: #6B7280;
+    }
+
+    /* ── Form card ── */
+    .login-form-wrap {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    /* ── Error alert ── */
+    .login-alert {
+      display: none;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #991B1B;
+      line-height: 1.5;
+    }
+    .login-alert.visible { display: flex; }
+    .login-alert svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Inputs ── */
+    .login-field { margin-bottom: 14px; }
+    .login-input {
+      width: 100%;
+      height: 52px;
+      padding: 0 18px;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 8px;
+      background: #FFFFFF;
+      font-family: inherit;
+      font-size: 15px;
+      color: #111827;
+      outline: none;
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+    .login-input:focus {
+      border-color: #111827;
+      box-shadow: 0 0 0 3px rgba(17,24,39,0.06);
+    }
+    .login-input::placeholder { color: #9CA3AF; }
+
+    /* Password row */
+    .login-pw-row {
+      position: relative;
+    }
+    .login-input-pw { padding-right: 48px; }
+    .login-pw-toggle {
+      position: absolute;
+      right: 14px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: #9CA3AF; padding: 0; display: flex; align-items: center;
+    }
+    .login-pw-toggle:hover { color: #6B7280; }
+    .login-pw-toggle svg { width: 18px; height: 18px; }
+
+    /* Forgot row */
+    .login-forgot-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 6px;
+      margin-bottom: 24px;
+    }
+    .login-forgot {
+      font-size: 13px;
+      color: #6B7280;
+      transition: color 150ms ease;
+    }
+    .login-forgot:hover { color: #111827; }
+
+    /* ── Submit button ── */
+    .login-btn {
+      width: 100%;
+      height: 52px;
+      background: #111827;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      letter-spacing: 0.01em;
+      transition: opacity 150ms ease;
+    }
+    .login-btn:hover:not(:disabled) { opacity: 0.88; }
+    .login-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .login-btn-arrow { font-size: 18px; line-height: 1; }
+    .login-btn-spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Footer note ── */
+    .login-footer-note {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: #9CA3AF;
+      padding-bottom: 32px;
+    }
+    .login-footer-note a { color: #111827; font-weight: 500; }
+    .login-footer-note a:hover { text-decoration: underline; }
+
+    /* ── City skyline illustration ── */
+    .login-skyline {
+      width: 100%;
+      margin-top: auto;
+      display: block;
+      line-height: 0;
+    }
+    .login-skyline svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @media (max-width: 560px) {
+      .login-page { padding-top: 40px; }
+      .login-brand-card { padding: 22px 20px; }
+      .login-brand-name { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-page">
+
+  <!-- Corner accents -->
+  <div class="login-corners" aria-hidden="true">
+    <div class="corner corner-tl">
+      <span class="blk blk-a"></span>
+      <span class="blk blk-b"></span>
+    </div>
+    <div class="corner corner-tr">
+      <span class="blk blk-a"></span>
+      <span class="blk blk-b"></span>
+    </div>
+  </div>
+
+  <!-- Brand header -->
+  <div class="login-brand-card">
+    <div class="login-brand-name">Iybots Real Estate</div>
+    <div class="login-brand-tagline">Your gateway to premium property investment</div>
+  </div>
+
+  <!-- Form -->
+  <div class="login-form-wrap">
+
+    <!-- Error -->
+    <div class="login-alert" id="loginAlert">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span id="loginAlertText">Invalid email or password. Please try again.</span>
+    </div>
+
+    <form id="loginForm" autocomplete="on">
+
+      <!-- Email -->
+      <div class="login-field">
+        <input
+          type="email" id="loginEmail" name="email"
+          class="login-input"
+          placeholder="Enter your email address"
+          autocomplete="email" required
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="login-field login-pw-row">
+        <input
+          type="password" id="loginPassword" name="password"
+          class="login-input login-input-pw"
+          placeholder="Enter your password"
+          autocomplete="current-password" required
+        />
+        <button type="button" class="login-pw-toggle" id="pwToggle" aria-label="Show password">
+          <svg id="pwEyeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Forgot -->
+      <div class="login-forgot-row">
+        <a href="/update-password" class="login-forgot">Forgot password?</a>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="login-btn" id="loginBtn">
+        <div class="login-btn-spinner" id="loginSpinner"></div>
+        <span id="loginBtnText">Sign In</span>
+        <span class="login-btn-arrow" id="loginBtnArrow" aria-hidden="true">→</span>
+      </button>
+
+    </form>
+
+    <div class="login-footer-note">
+      Having trouble? <a href="mailto:support@iybots.com">Contact support</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- City skyline SVG illustration -->
+<div class="login-skyline" aria-hidden="true">
+  <svg viewBox="0 0 1440 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+    <g fill="none" stroke="#D1D5DB" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Ground line -->
+      <line x1="0" y1="219" x2="1440" y2="219"/>
+
+      <!-- Building cluster 1 — far left -->
+      <rect x="8" y="155" width="28" height="64"/>
+      <rect x="12" y="160" width="6" height="6"/><rect x="22" y="160" width="6" height="6"/>
+      <rect x="12" y="172" width="6" height="6"/><rect x="22" y="172" width="6" height="6"/>
+      <rect x="12" y="184" width="6" height="6"/><rect x="22" y="184" width="6" height="6"/>
+      <rect x="14" y="197" width="16" height="22"/>
+
+      <rect x="40" y="130" width="22" height="89"/>
+      <line x1="51" y1="130" x2="51" y2="119"/><polygon points="51,112 45,119 57,119"/>
+      <rect x="43" y="140" width="5" height="5"/><rect x="53" y="140" width="5" height="5"/>
+      <rect x="43" y="152" width="5" height="5"/><rect x="53" y="152" width="5" height="5"/>
+      <rect x="43" y="164" width="5" height="5"/><rect x="53" y="164" width="5" height="5"/>
+      <rect x="43" y="176" width="5" height="5"/><rect x="53" y="176" width="5" height="5"/>
+      <rect x="46" y="197" width="10" height="22"/>
+
+      <rect x="66" y="148" width="18" height="71"/>
+      <rect x="69" y="154" width="4" height="4"/><rect x="77" y="154" width="4" height="4"/>
+      <rect x="69" y="163" width="4" height="4"/><rect x="77" y="163" width="4" height="4"/>
+      <rect x="69" y="172" width="4" height="4"/><rect x="77" y="172" width="4" height="4"/>
+      <rect x="69" y="181" width="4" height="4"/><rect x="77" y="181" width="4" height="4"/>
+
+      <!-- Trees -->
+      <line x1="95" y1="219" x2="95" y2="188"/>
+      <ellipse cx="95" cy="183" rx="10" ry="13"/>
+      <line x1="115" y1="219" x2="115" y2="194"/>
+      <ellipse cx="115" cy="189" rx="8" ry="11"/>
+
+      <!-- Cluster 2 -->
+      <rect x="132" y="108" width="32" height="111"/>
+      <line x1="148" y1="108" x2="148" y2="94"/><line x1="144" y1="94" x2="152" y2="94"/>
+      <rect x="136" y="116" width="6" height="7"/><rect x="146" y="116" width="6" height="7"/><rect x="156" y="116" width="6" height="7"/>
+      <rect x="136" y="129" width="6" height="7"/><rect x="146" y="129" width="6" height="7"/><rect x="156" y="129" width="6" height="7"/>
+      <rect x="136" y="142" width="6" height="7"/><rect x="146" y="142" width="6" height="7"/><rect x="156" y="142" width="6" height="7"/>
+      <rect x="136" y="155" width="6" height="7"/><rect x="146" y="155" width="6" height="7"/><rect x="156" y="155" width="6" height="7"/>
+      <rect x="136" y="168" width="6" height="7"/><rect x="146" y="168" width="6" height="7"/><rect x="156" y="168" width="6" height="7"/>
+      <rect x="139" y="195" width="18" height="24"/>
+
+      <rect x="168" y="138" width="24" height="81"/>
+      <rect x="171" y="145" width="5" height="5"/><rect x="180" y="145" width="5" height="5"/>
+      <rect x="171" y="156" width="5" height="5"/><rect x="180" y="156" width="5" height="5"/>
+      <rect x="171" y="167" width="5" height="5"/><rect x="180" y="167" width="5" height="5"/>
+      <rect x="171" y="178" width="5" height="5"/><rect x="180" y="178" width="5" height="5"/>
+      <rect x="174" y="197" width="12" height="22"/>
+
+      <!-- Wind turbine -->
+      <line x1="205" y1="219" x2="205" y2="158"/>
+      <circle cx="205" cy="157" r="3"/>
+      <line x1="205" y1="154" x2="205" y2="138"/>
+      <line x1="205" y1="154" x2="192" y2="164"/>
+      <line x1="205" y1="154" x2="218" y2="164"/>
+
+      <!-- Cluster 3 — mid-left -->
+      <rect x="228" y="162" width="20" height="57"/>
+      <rect x="231" y="167" width="4" height="5"/><rect x="240" y="167" width="4" height="5"/>
+      <rect x="231" y="178" width="4" height="5"/><rect x="240" y="178" width="4" height="5"/>
+      <rect x="233" y="197" width="12" height="22"/>
+
+      <rect x="252" y="120" width="36" height="99"/>
+      <line x1="270" y1="120" x2="270" y2="105"/>
+      <polygon points="270,97 262,105 278,105"/>
+      <rect x="256" y="128" width="7" height="8"/><rect x="267" y="128" width="7" height="8"/><rect x="278" y="128" width="7" height="8"/>
+      <rect x="256" y="142" width="7" height="8"/><rect x="267" y="142" width="7" height="8"/><rect x="278" y="142" width="7" height="8"/>
+      <rect x="256" y="156" width="7" height="8"/><rect x="267" y="156" width="7" height="8"/><rect x="278" y="156" width="7" height="8"/>
+      <rect x="256" y="170" width="7" height="8"/><rect x="267" y="170" width="7" height="8"/><rect x="278" y="170" width="7" height="8"/>
+      <rect x="261" y="196" width="18" height="23"/>
+
+      <!-- Trees -->
+      <line x1="296" y1="219" x2="296" y2="188"/>
+      <ellipse cx="296" cy="182" rx="11" ry="14"/>
+      <line x1="316" y1="219" x2="316" y2="194"/>
+      <ellipse cx="316" cy="188" rx="9" ry="12"/>
+      <line x1="334" y1="219" x2="334" y2="198"/>
+      <ellipse cx="334" cy="193" rx="7" ry="9"/>
+
+      <!-- Cluster 4 — centre-left -->
+      <rect x="352" y="100" width="44" height="119"/>
+      <line x1="374" y1="100" x2="374" y2="84"/>
+      <line x1="370" y1="84" x2="378" y2="84"/>
+      <rect x="357" y="108" width="8" height="9"/><rect x="369" y="108" width="8" height="9"/><rect x="381" y="108" width="8" height="9"/>
+      <rect x="357" y="123" width="8" height="9"/><rect x="369" y="123" width="8" height="9"/><rect x="381" y="123" width="8" height="9"/>
+      <rect x="357" y="138" width="8" height="9"/><rect x="369" y="138" width="8" height="9"/><rect x="381" y="138" width="8" height="9"/>
+      <rect x="357" y="153" width="8" height="9"/><rect x="369" y="153" width="8" height="9"/><rect x="381" y="153" width="8" height="9"/>
+      <rect x="357" y="168" width="8" height="9"/><rect x="369" y="168" width="8" height="9"/><rect x="381" y="168" width="8" height="9"/>
+      <rect x="363" y="194" width="22" height="25"/>
+
+      <rect x="400" y="140" width="26" height="79"/>
+      <rect x="404" y="147" width="5" height="6"/><rect x="414" y="147" width="5" height="6"/>
+      <rect x="404" y="159" width="5" height="6"/><rect x="414" y="159" width="5" height="6"/>
+      <rect x="404" y="171" width="5" height="6"/><rect x="414" y="171" width="5" height="6"/>
+      <rect x="404" y="183" width="5" height="6"/><rect x="414" y="183" width="5" height="6"/>
+      <rect x="407" y="197" width="12" height="22"/>
+
+      <!-- Wind turbine 2 -->
+      <line x1="435" y1="219" x2="435" y2="162"/>
+      <circle cx="435" cy="161" r="3"/>
+      <line x1="435" y1="158" x2="435" y2="142"/>
+      <line x1="435" y1="158" x2="422" y2="168"/>
+      <line x1="435" y1="158" x2="448" y2="168"/>
+
+      <!-- Cluster 5 — centre -->
+      <rect x="460" y="78" width="52" height="141"/>
+      <line x1="486" y1="78" x2="486" y2="58"/>
+      <line x1="480" y1="58" x2="492" y2="58"/>
+      <line x1="486" y1="58" x2="486" y2="48"/>
+      <rect x="465" y="86" width="9" height="10"/><rect x="478" y="86" width="9" height="10"/><rect x="491" y="86" width="9" height="10"/>
+      <rect x="465" y="102" width="9" height="10"/><rect x="478" y="102" width="9" height="10"/><rect x="491" y="102" width="9" height="10"/>
+      <rect x="465" y="118" width="9" height="10"/><rect x="478" y="118" width="9" height="10"/><rect x="491" y="118" width="9" height="10"/>
+      <rect x="465" y="134" width="9" height="10"/><rect x="478" y="134" width="9" height="10"/><rect x="491" y="134" width="9" height="10"/>
+      <rect x="465" y="150" width="9" height="10"/><rect x="478" y="150" width="9" height="10"/><rect x="491" y="150" width="9" height="10"/>
+      <rect x="465" y="166" width="9" height="10"/><rect x="478" y="166" width="9" height="10"/><rect x="491" y="166" width="9" height="10"/>
+      <rect x="472" y="194" width="28" height="25"/>
+
+      <rect x="516" y="120" width="30" height="99"/>
+      <polygon points="531,112 516,120 546,120"/>
+      <rect x="520" y="128" width="6" height="7"/><rect x="531" y="128" width="6" height="7"/>
+      <rect x="520" y="141" width="6" height="7"/><rect x="531" y="141" width="6" height="7"/>
+      <rect x="520" y="154" width="6" height="7"/><rect x="531" y="154" width="6" height="7"/>
+      <rect x="520" y="167" width="6" height="7"/><rect x="531" y="167" width="6" height="7"/>
+      <rect x="523" y="195" width="14" height="24"/>
+
+      <!-- Trees centre -->
+      <line x1="553" y1="219" x2="553" y2="186"/>
+      <ellipse cx="553" cy="180" rx="12" ry="15"/>
+      <line x1="573" y1="219" x2="573" y2="192"/>
+      <ellipse cx="573" cy="186" rx="9" ry="12"/>
+
+      <!-- Cluster 6 — centre-right -->
+      <rect x="592" y="95" width="48" height="124"/>
+      <line x1="616" y1="95" x2="616" y2="78"/>
+      <polygon points="616,70 608,78 624,78"/>
+      <rect x="597" y="103" width="8" height="9"/><rect x="609" y="103" width="8" height="9"/><rect x="621" y="103" width="8" height="9"/>
+      <rect x="597" y="118" width="8" height="9"/><rect x="609" y="118" width="8" height="9"/><rect x="621" y="118" width="8" height="9"/>
+      <rect x="597" y="133" width="8" height="9"/><rect x="609" y="133" width="8" height="9"/><rect x="621" y="133" width="8" height="9"/>
+      <rect x="597" y="148" width="8" height="9"/><rect x="609" y="148" width="8" height="9"/><rect x="621" y="148" width="8" height="9"/>
+      <rect x="597" y="163" width="8" height="9"/><rect x="609" y="163" width="8" height="9"/><rect x="621" y="163" width="8" height="9"/>
+      <rect x="597" y="178" width="8" height="9"/><rect x="609" y="178" width="8" height="9"/><rect x="621" y="178" width="8" height="9"/>
+      <rect x="603" y="196" width="26" height="23"/>
+
+      <rect x="644" y="148" width="24" height="71"/>
+      <rect x="648" y="155" width="5" height="5"/><rect x="657" y="155" width="5" height="5"/>
+      <rect x="648" y="166" width="5" height="5"/><rect x="657" y="166" width="5" height="5"/>
+      <rect x="648" y="177" width="5" height="5"/><rect x="657" y="177" width="5" height="5"/>
+      <rect x="648" y="188" width="5" height="5"/><rect x="657" y="188" width="5" height="5"/>
+      <rect x="651" y="197" width="12" height="22"/>
+
+      <!-- Wind turbine 3 -->
+      <line x1="678" y1="219" x2="678" y2="164"/>
+      <circle cx="678" cy="163" r="3"/>
+      <line x1="678" y1="160" x2="678" y2="144"/>
+      <line x1="678" y1="160" x2="665" y2="170"/>
+      <line x1="678" y1="160" x2="691" y2="170"/>
+
+      <!-- Cluster 7 — right -->
+      <rect x="702" y="110" width="40" height="109"/>
+      <line x1="722" y1="110" x2="722" y2="94"/>
+      <line x1="718" y1="94" x2="726" y2="94"/>
+      <rect x="707" y="118" width="7" height="8"/><rect x="718" y="118" width="7" height="8"/><rect x="729" y="118" width="7" height="8"/>
+      <rect x="707" y="132" width="7" height="8"/><rect x="718" y="132" width="7" height="8"/><rect x="729" y="132" width="7" height="8"/>
+      <rect x="707" y="146" width="7" height="8"/><rect x="718" y="146" width="7" height="8"/><rect x="729" y="146" width="7" height="8"/>
+      <rect x="707" y="160" width="7" height="8"/><rect x="718" y="160" width="7" height="8"/><rect x="729" y="160" width="7" height="8"/>
+      <rect x="707" y="174" width="7" height="8"/><rect x="718" y="174" width="7" height="8"/><rect x="729" y="174" width="7" height="8"/>
+      <rect x="711" y="196" width="22" height="23"/>
+
+      <rect x="746" y="135" width="28" height="84"/>
+      <polygon points="760,128 746,135 774,135"/>
+      <rect x="750" y="143" width="6" height="6"/><rect x="761" y="143" width="6" height="6"/>
+      <rect x="750" y="155" width="6" height="6"/><rect x="761" y="155" width="6" height="6"/>
+      <rect x="750" y="167" width="6" height="6"/><rect x="761" y="167" width="6" height="6"/>
+      <rect x="750" y="179" width="6" height="6"/><rect x="761" y="179" width="6" height="6"/>
+      <rect x="753" y="197" width="14" height="22"/>
+
+      <!-- Trees right-centre -->
+      <line x1="782" y1="219" x2="782" y2="186"/>
+      <ellipse cx="782" cy="180" rx="11" ry="14"/>
+      <line x1="800" y1="219" x2="800" y2="194"/>
+      <ellipse cx="800" cy="188" rx="8" ry="11"/>
+
+      <!-- Cluster 8 — far right -->
+      <rect x="818" y="92" width="50" height="127"/>
+      <line x1="843" y1="92" x2="843" y2="74"/>
+      <polygon points="843,66 835,74 851,74"/>
+      <rect x="823" y="100" width="9" height="10"/><rect x="836" y="100" width="9" height="10"/><rect x="849" y="100" width="9" height="10"/>
+      <rect x="823" y="116" width="9" height="10"/><rect x="836" y="116" width="9" height="10"/><rect x="849" y="116" width="9" height="10"/>
+      <rect x="823" y="132" width="9" height="10"/><rect x="836" y="132" width="9" height="10"/><rect x="849" y="132" width="9" height="10"/>
+      <rect x="823" y="148" width="9" height="10"/><rect x="836" y="148" width="9" height="10"/><rect x="849" y="148" width="9" height="10"/>
+      <rect x="823" y="164" width="9" height="10"/><rect x="836" y="164" width="9" height="10"/><rect x="849" y="164" width="9" height="10"/>
+      <rect x="823" y="180" width="9" height="10"/><rect x="836" y="180" width="9" height="10"/><rect x="849" y="180" width="9" height="10"/>
+      <rect x="831" y="196" width="24" height="23"/>
+
+      <rect x="872" y="145" width="22" height="74"/>
+      <rect x="875" y="151" width="5" height="5"/><rect x="884" y="151" width="5" height="5"/>
+      <rect x="875" y="162" width="5" height="5"/><rect x="884" y="162" width="5" height="5"/>
+      <rect x="875" y="173" width="5" height="5"/><rect x="884" y="173" width="5" height="5"/>
+      <rect x="875" y="184" width="5" height="5"/><rect x="884" y="184" width="5" height="5"/>
+      <rect x="877" y="197" width="12" height="22"/>
+
+      <!-- Wind turbine 4 -->
+      <line x1="904" y1="219" x2="904" y2="165"/>
+      <circle cx="904" cy="164" r="3"/>
+      <line x1="904" y1="161" x2="904" y2="145"/>
+      <line x1="904" y1="161" x2="891" y2="171"/>
+      <line x1="904" y1="161" x2="917" y2="171"/>
+
+      <rect x="926" y="120" width="34" height="99"/>
+      <line x1="943" y1="120" x2="943" y2="106"/>
+      <line x1="939" y1="106" x2="947" y2="106"/>
+      <rect x="930" y="128" width="6" height="7"/><rect x="940" y="128" width="6" height="7"/><rect x="950" y="128" width="6" height="7"/>
+      <rect x="930" y="141" width="6" height="7"/><rect x="940" y="141" width="6" height="7"/><rect x="950" y="141" width="6" height="7"/>
+      <rect x="930" y="154" width="6" height="7"/><rect x="940" y="154" width="6" height="7"/><rect x="950" y="154" width="6" height="7"/>
+      <rect x="930" y="167" width="6" height="7"/><rect x="940" y="167" width="6" height="7"/><rect x="950" y="167" width="6" height="7"/>
+      <rect x="930" y="180" width="6" height="7"/><rect x="940" y="180" width="6" height="7"/><rect x="950" y="180" width="6" height="7"/>
+      <rect x="936" y="196" width="14" height="23"/>
+
+      <!-- Trees far right -->
+      <line x1="968" y1="219" x2="968" y2="186"/>
+      <ellipse cx="968" cy="180" rx="12" ry="15"/>
+      <line x1="988" y1="219" x2="988" y2="192"/>
+      <ellipse cx="988" cy="186" rx="9" ry="12"/>
+      <line x1="1006" y1="219" x2="1006" y2="198"/>
+      <ellipse cx="1006" cy="192" rx="7" ry="10"/>
+
+      <!-- Cluster 9 — edge right -->
+      <rect x="1022" y="138" width="24" height="81"/>
+      <rect x="1026" y="144" width="5" height="6"/><rect x="1035" y="144" width="5" height="6"/>
+      <rect x="1026" y="156" width="5" height="6"/><rect x="1035" y="156" width="5" height="6"/>
+      <rect x="1026" y="168" width="5" height="6"/><rect x="1035" y="168" width="5" height="6"/>
+      <rect x="1026" y="180" width="5" height="6"/><rect x="1035" y="180" width="5" height="6"/>
+      <rect x="1028" y="197" width="12" height="22"/>
+
+      <rect x="1050" y="108" width="36" height="111"/>
+      <line x1="1068" y1="108" x2="1068" y2="92"/>
+      <polygon points="1068,84 1060,92 1076,92"/>
+      <rect x="1055" y="116" width="7" height="8"/><rect x="1066" y="116" width="7" height="8"/><rect x="1077" y="116" width="7" height="8"/>
+      <rect x="1055" y="130" width="7" height="8"/><rect x="1066" y="130" width="7" height="8"/><rect x="1077" y="130" width="7" height="8"/>
+      <rect x="1055" y="144" width="7" height="8"/><rect x="1066" y="144" width="7" height="8"/><rect x="1077" y="144" width="7" height="8"/>
+      <rect x="1055" y="158" width="7" height="8"/><rect x="1066" y="158" width="7" height="8"/><rect x="1077" y="158" width="7" height="8"/>
+      <rect x="1055" y="172" width="7" height="8"/><rect x="1066" y="172" width="7" height="8"/><rect x="1077" y="172" width="7" height="8"/>
+      <rect x="1060" y="196" width="16" height="23"/>
+
+      <rect x="1090" y="150" width="20" height="69"/>
+      <rect x="1093" y="156" width="4" height="5"/><rect x="1101" y="156" width="4" height="5"/>
+      <rect x="1093" y="167" width="4" height="5"/><rect x="1101" y="167" width="4" height="5"/>
+      <rect x="1093" y="178" width="4" height="5"/><rect x="1101" y="178" width="4" height="5"/>
+      <rect x="1093" y="189" width="4" height="5"/><rect x="1101" y="189" width="4" height="5"/>
+      <rect x="1095" y="197" width="10" height="22"/>
+
+      <!-- Wind turbine 5 -->
+      <line x1="1120" y1="219" x2="1120" y2="162"/>
+      <circle cx="1120" cy="161" r="3"/>
+      <line x1="1120" y1="158" x2="1120" y2="142"/>
+      <line x1="1120" y1="158" x2="1107" y2="168"/>
+      <line x1="1120" y1="158" x2="1133" y2="168"/>
+
+      <!-- Cluster 10 — far-right edge -->
+      <rect x="1142" y="162" width="18" height="57"/>
+      <rect x="1145" y="168" width="4" height="5"/><rect x="1153" y="168" width="4" height="5"/>
+      <rect x="1145" y="179" width="4" height="5"/><rect x="1153" y="179" width="4" height="5"/>
+      <rect x="1145" y="190" width="4" height="5"/><rect x="1153" y="190" width="4" height="5"/>
+      <rect x="1147" y="197" width="10" height="22"/>
+
+      <rect x="1164" y="130" width="30" height="89"/>
+      <line x1="1179" y1="130" x2="1179" y2="116"/>
+      <line x1="1175" y1="116" x2="1183" y2="116"/>
+      <rect x="1168" y="138" width="6" height="7"/><rect x="1178" y="138" width="6" height="7"/><rect x="1188" y="138" width="6" height="7"/>
+      <rect x="1168" y="151" width="6" height="7"/><rect x="1178" y="151" width="6" height="7"/><rect x="1188" y="151" width="6" height="7"/>
+      <rect x="1168" y="164" width="6" height="7"/><rect x="1178" y="164" width="6" height="7"/><rect x="1188" y="164" width="6" height="7"/>
+      <rect x="1168" y="177" width="6" height="7"/><rect x="1178" y="177" width="6" height="7"/><rect x="1188" y="177" width="6" height="7"/>
+      <rect x="1172" y="196" width="14" height="23"/>
+
+      <rect x="1198" y="148" width="22" height="71"/>
+      <rect x="1201" y="154" width="5" height="5"/><rect x="1210" y="154" width="5" height="5"/>
+      <rect x="1201" y="165" width="5" height="5"/><rect x="1210" y="165" width="5" height="5"/>
+      <rect x="1201" y="176" width="5" height="5"/><rect x="1210" y="176" width="5" height="5"/>
+      <rect x="1201" y="187" width="5" height="5"/><rect x="1210" y="187" width="5" height="5"/>
+
+      <rect x="1224" y="155" width="16" height="64"/>
+      <rect x="1227" y="161" width="4" height="4"/><rect x="1235" y="161" width="4" height="4"/>
+      <rect x="1227" y="171" width="4" height="4"/><rect x="1235" y="171" width="4" height="4"/>
+      <rect x="1227" y="181" width="4" height="4"/><rect x="1235" y="181" width="4" height="4"/>
+
+      <!-- Clouds -->
+      <ellipse cx="75" cy="60" rx="18" ry="10"/>
+      <ellipse cx="90" cy="55" rx="14" ry="9"/>
+      <ellipse cx="60" cy="58" rx="12" ry="8"/>
+
+      <ellipse cx="340" cy="45" rx="20" ry="11"/>
+      <ellipse cx="357" cy="40" rx="16" ry="10"/>
+      <ellipse cx="324" cy="43" rx="13" ry="8"/>
+
+      <ellipse cx="750" cy="38" rx="22" ry="12"/>
+      <ellipse cx="769" cy="33" rx="17" ry="10"/>
+      <ellipse cx="733" cy="36" rx="14" ry="9"/>
+
+      <ellipse cx="1100" cy="52" rx="19" ry="10"/>
+      <ellipse cx="1117" cy="47" rx="15" ry="9"/>
+      <ellipse cx="1084" cy="50" rx="12" ry="8"/>
+
+      <!-- Sun -->
+      <circle cx="1380" cy="48" r="22"/>
+      <line x1="1380" y1="18" x2="1380" y2="10"/>
+      <line x1="1380" y1="78" x2="1380" y2="86"/>
+      <line x1="1350" y1="48" x2="1342" y2="48"/>
+      <line x1="1410" y1="48" x2="1418" y2="48"/>
+      <line x1="1359" y1="27" x2="1353" y2="21"/>
+      <line x1="1401" y1="69" x2="1407" y2="75"/>
+      <line x1="1401" y1="27" x2="1407" y2="21"/>
+      <line x1="1359" y1="69" x2="1353" y2="75"/>
+    </g>
+  </svg>
+</div>
+
+<script>
+(function () {
+  var redirectTo = "{{ redirect_to | e }}";
+
+  /* Password toggle */
+  var pwInput  = document.getElementById('loginPassword');
+  var pwToggle = document.getElementById('pwToggle');
+  var pwIcon   = document.getElementById('pwEyeIcon');
+  var eyeOff = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  var eyeOn  = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+
+  pwToggle.addEventListener('click', function () {
+    var isHidden = pwInput.type === 'password';
+    pwInput.type = isHidden ? 'text' : 'password';
+    pwIcon.innerHTML = isHidden ? eyeOff : eyeOn;
+  });
+
+  /* Form submit */
+  var form     = document.getElementById('loginForm');
+  var btn      = document.getElementById('loginBtn');
+  var spinner  = document.getElementById('loginSpinner');
+  var btnText  = document.getElementById('loginBtnText');
+  var btnArrow = document.getElementById('loginBtnArrow');
+  var alertEl  = document.getElementById('loginAlert');
+  var alertTxt = document.getElementById('loginAlertText');
+
+  function setLoading(on) {
+    btn.disabled = on;
+    spinner.style.display  = on ? 'block' : 'none';
+    btnText.textContent    = on ? 'Signing in…' : 'Sign In';
+    btnArrow.style.display = on ? 'none' : '';
+  }
+
+  function showError(msg) {
+    alertTxt.textContent = msg || 'Invalid email or password.';
+    alertEl.classList.add('visible');
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    alertEl.classList.remove('visible');
+
+    var usr = document.getElementById('loginEmail').value.trim();
+    var pwd = document.getElementById('loginPassword').value;
+    if (!usr || !pwd) { showError('Please enter your email and password.'); return; }
+
+    setLoading(true);
+
+    fetch('/api/method/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-Frappe-CSRF-Token': 'fetch' },
+      body: 'usr=' + encodeURIComponent(usr) + '&pwd=' + encodeURIComponent(pwd),
+      credentials: 'same-origin',
+    })
+    .then(function (res) {
+      return res.json().then(function (data) { return { status: res.status, data: data }; });
+    })
+    .then(function (res) {
+      if (res.status === 200 && res.data.message) {
+        window.location.href = redirectTo || '/portal';
+      } else {
+        var msg = (res.data && res.data.message) ? res.data.message : 'Invalid email or password.';
+        if (msg === 'Incorrect password' || msg === 'no_permission' || msg === 'User disabled or missing') {
+          msg = 'Invalid email or password. Please try again.';
+        }
+        showError(msg);
+        setLoading(false);
+      }
+    })
+    .catch(function () {
+      showError('Unable to connect. Please check your connection and try again.');
+      setLoading(false);
+    });
+  });
+
+  document.getElementById('loginEmail').focus();
+})();
+</script>
+</body>
+</html>

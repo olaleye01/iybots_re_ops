@@ -25,8 +25,11 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = "/assets/iybots_re_ops/css/iybots_theme.css"
-# app_include_js = "/assets/iybots_re_ops/js/iybots_re_ops.js"
+app_include_css = [
+	"/assets/iybots_re_ops/css/iybots_theme.css",
+	"/assets/iybots_re_ops/css/dashboard.css",
+]
+app_include_js = "/assets/iybots_re_ops/js/dashboard_components.js"
 
 # include js, css files in header of web template
 web_include_css = "/assets/iybots_re_ops/css/portal.css"
@@ -252,6 +255,7 @@ fixtures = [
     {"dt": "Lead Source", "filters": [["name", "in", ["Instagram", "Property Show", "Referral - Agent", "Website", "Walk-in", "WhatsApp"]]]},
     {"dt": "Workspace", "filters": [["module", "=", "Iybots Real Estate Ops"]]},
     {"dt": "Number Card", "filters": [["module", "=", "Iybots Real Estate Ops"]]},
+    {"dt": "Page", "filters": [["module", "=", "Iybots Real Estate Ops"]]},
 ]
 
 website_context = {

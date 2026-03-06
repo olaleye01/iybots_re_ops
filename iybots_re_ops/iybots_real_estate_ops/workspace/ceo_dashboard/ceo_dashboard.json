@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"xJt0J4Xg7y\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Real Estate KPIs</span>\",\"col\":12}},{\"id\":\"jH2G6rP5cQ\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quick Links</span>\",\"col\":12}},{\"id\":\"vX8T3wN9oE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Properties\",\"col\":4}},{\"id\":\"cZ5M7bY1fR\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payment Plans\",\"col\":4}},{\"id\":\"gL4K9sJ2vW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commission Records\",\"col\":4}}]",
+ "content": "[{\"id\":\"db-ceo-header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">CEO Dashboard</span>\",\"col\":12}},{\"id\":\"db-ceo-page\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"CEO Dashboard\",\"col\":12}},{\"id\":\"vX8T3wN9oE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Properties\",\"col\":4}},{\"id\":\"cZ5M7bY1fR\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payment Plans\",\"col\":4}},{\"id\":\"gL4K9sJ2vW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commission Records\",\"col\":4}}]",
  "creation": "2026-03-06 12:54:04.568374",
  "custom_blocks": [],
  "docstatus": 0,
@@ -64,6 +64,12 @@
  ],
  "sequence_id": 1.0,
  "shortcuts": [
+  {
+   "color": "Blue",
+   "label": "CEO Dashboard",
+   "link_to": "ceo-exec",
+   "type": "Page"
+  },
   {
    "color": "Grey",
    "format": "{} Open",

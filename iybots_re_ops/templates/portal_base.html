@@ -183,7 +183,7 @@
       e.preventDefault();
       fetch('/api/method/logout', { method: 'GET', credentials: 'same-origin' })
         .finally(function () {
-          window.location.href = '/#login';
+          window.location.href = '/portal/login';
         });
     });
   }

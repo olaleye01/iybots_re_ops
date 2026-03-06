@@ -1,0 +1,20 @@
+{
+ "creation": "2026-03-06 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-03-06 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Iybots Real Estate Ops",
+ "name": "re-sales-dashboard",
+ "owner": "Administrator",
+ "page_name": "re-sales-dashboard",
+ "roles": [
+  {"role": "RE Agent"},
+  {"role": "RE Admin"},
+  {"role": "MD"},
+  {"role": "System Manager"}
+ ],
+ "system_page": 0,
+ "title": "RE Sales"
+}

@@ -1,6 +1,6 @@
 [
     {
-        "content": "[{\"id\":\"xJt0J4Xg7y\",\"type\":\"header\",\"data\":{\"text\":\"Real Estate KPIs\",\"level\":2,\"col\":12}},{\"id\":\"qBfM2Z5o9w\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Properties\",\"col\":4}},{\"id\":\"wA1R8cN6yL\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Deals\",\"col\":4}},{\"id\":\"pK3V5xT2zM\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Closed Deals This Month\",\"col\":4}},{\"id\":\"hF7Y1sE4bN\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Outstanding\",\"col\":6}},{\"id\":\"mU9D4vL8aK\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Agents Checked In Today\",\"col\":6}},{\"id\":\"jH2G6rP5cQ\",\"type\":\"header\",\"data\":{\"text\":\"Quick Links\",\"level\":3,\"col\":12}},{\"id\":\"vX8T3wN9oE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Properties\",\"col\":4}},{\"id\":\"cZ5M7bY1fR\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payment Plans\",\"col\":4}},{\"id\":\"gL4K9sJ2vW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commission Records\",\"col\":4}}]",
+        "content": "[{\"id\":\"db-ceo-header\",\"type\":\"header\",\"data\":{\"text\":\"CEO Dashboard\",\"level\":2,\"col\":12}},{\"id\":\"db-ceo-page\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"CEO Dashboard\",\"col\":12}},{\"id\":\"vX8T3wN9oE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Properties\",\"col\":4}},{\"id\":\"cZ5M7bY1fR\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payment Plans\",\"col\":4}},{\"id\":\"gL4K9sJ2vW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commission Records\",\"col\":4}}]",
         "docstatus": 0,
         "doctype": "Workspace",
         "name": "CEO Dashboard",
@@ -55,6 +55,12 @@
         "charts": [],
         "shortcuts": [
             {
+                "color": "Blue",
+                "label": "CEO Dashboard",
+                "link_to": "ceo-exec",
+                "type": "Page"
+            },
+            {
                 "color": "Grey",
                 "format": "{} Open",
                 "label": "Properties",
@@ -81,7 +87,7 @@
         ]
     },
     {
-        "content": "[{\"id\":\"aB1C2dE3fG\",\"type\":\"header\",\"data\":{\"text\":\"Sales CRM\",\"level\":2,\"col\":12}},{\"id\":\"hI4J5kL6mN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pipeline Board\",\"col\":6}},{\"id\":\"oP7Q8rS9tU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leads\",\"col\":6}},{\"id\":\"vW0X1yZ2aB\",\"type\":\"header\",\"data\":{\"text\":\"Quick Create\",\"level\":3,\"col\":12}},{\"id\":\"cD3E4fG5hI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Lead\",\"col\":4}},{\"id\":\"jK6L7mN8oP\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Opportunity\",\"col\":4}},{\"id\":\"qR9S0tU1vW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Property\",\"col\":4}}]",
+        "content": "[{\"id\":\"db-sales-header\",\"type\":\"header\",\"data\":{\"text\":\"RE Sales Dashboard\",\"level\":2,\"col\":12}},{\"id\":\"db-sales-page\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RE Sales Dashboard\",\"col\":12}},{\"id\":\"hI4J5kL6mN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pipeline Board\",\"col\":6}},{\"id\":\"oP7Q8rS9tU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leads\",\"col\":6}}]",
         "docstatus": 0,
         "doctype": "Workspace",
         "name": "RE Sales",
@@ -126,6 +132,12 @@
         "charts": [],
         "shortcuts": [
             {
+                "color": "Blue",
+                "label": "RE Sales Dashboard",
+                "link_to": "re-sales-dashboard",
+                "type": "Page"
+            },
+            {
                 "color": "Grey",
                 "format": "{} Open Deals",
                 "label": "Pipeline Board",
@@ -140,35 +152,11 @@
                 "link_to": "Lead",
                 "stats_filter": "[]",
                 "type": "DocType"
-            },
-            {
-                "color": "Grey",
-                "format": "",
-                "label": "New Lead",
-                "link_to": "Lead",
-                "stats_filter": "[]",
-                "type": "DocType"
-            },
-            {
-                "color": "Grey",
-                "format": "",
-                "label": "New Opportunity",
-                "link_to": "Opportunity",
-                "stats_filter": "[]",
-                "type": "DocType"
-            },
-            {
-                "color": "Grey",
-                "format": "",
-                "label": "New Property",
-                "link_to": "Property",
-                "stats_filter": "[]",
-                "type": "DocType"
             }
         ]
     },
     {
-        "content": "[{\"id\":\"zYxXwVvUuT\",\"type\":\"header\",\"data\":{\"text\":\"Operations & HR\",\"level\":2,\"col\":12}},{\"id\":\"sSrRqQpPoO\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Agent Check-ins\",\"col\":4}},{\"id\":\"nNmMlLkKjJ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commission Records\",\"col\":4}},{\"id\":\"iIhHgGfFeE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payment Plans\",\"col\":4}},{\"id\":\"dDcCbBaA09\",\"type\":\"header\",\"data\":{\"text\":\"Reports\",\"level\":3,\"col\":12}},{\"id\":\"8877665544\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Overdue Payments\",\"col\":6}},{\"id\":\"33221100aa\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payments Due This Week\",\"col\":6}}]",
+        "content": "[{\"id\":\"db-ops-header\",\"type\":\"header\",\"data\":{\"text\":\"RE Operations Dashboard\",\"level\":2,\"col\":12}},{\"id\":\"db-ops-page\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RE Operations Dashboard\",\"col\":12}},{\"id\":\"sSrRqQpPoO\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Agent Check-ins\",\"col\":4}},{\"id\":\"iIhHgGfFeE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payment Plans\",\"col\":4}},{\"id\":\"8877665544\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Overdue Payments\",\"col\":4}}]",
         "docstatus": 0,
         "doctype": "Workspace",
         "name": "RE Operations",
@@ -202,9 +190,9 @@
                 "dependencies": "",
                 "hidden": 0,
                 "is_query_report": 0,
-                "label": "Commission Record",
+                "label": "Payment Plan",
                 "link_count": 0,
-                "link_to": "Commission Record",
+                "link_to": "Payment Plan",
                 "link_type": "DocType",
                 "onboard": 0,
                 "type": "Link"
@@ -213,9 +201,9 @@
                 "dependencies": "",
                 "hidden": 0,
                 "is_query_report": 0,
-                "label": "Payment Plan",
+                "label": "Property",
                 "link_count": 0,
-                "link_to": "Payment Plan",
+                "link_to": "Property",
                 "link_type": "DocType",
                 "onboard": 0,
                 "type": "Link"
@@ -224,18 +212,16 @@
         "charts": [],
         "shortcuts": [
             {
+                "color": "Blue",
+                "label": "RE Operations Dashboard",
+                "link_to": "re-operations-dashboard",
+                "type": "Page"
+            },
+            {
                 "color": "Grey",
                 "format": "{} Today",
                 "label": "Agent Check-ins",
                 "link_to": "Agent Check-in",
-                "stats_filter": "[]",
-                "type": "DocType"
-            },
-            {
-                "color": "Grey",
-                "format": "{} Pending",
-                "label": "Commission Records",
-                "link_to": "Commission Record",
                 "stats_filter": "[]",
                 "type": "DocType"
             },
