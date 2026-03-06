@@ -15,10 +15,10 @@
 	--primary-light: #EFF6FF;
 
 	/* Custom additions */
-	--sidebar-bg: #0F172A;
-	--sidebar-text: #CBD5E1;
-	--sidebar-active: #334155;
-	--sidebar-accent: #3B82F6;
+	--sidebar-bg: #FFFFFF;
+	--sidebar-text: #475569;
+	--sidebar-active: #EFF6FF;
+	--sidebar-accent: #2563EB;
 	--radius-card: 12px;
 	--radius-btn: 8px;
 	--shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
@@ -61,7 +61,18 @@ body,
 .desk-sidebar {
 	background: var(--sidebar-bg) !important;
 	width: 240px !important;
-	border-right: none !important;
+	min-width: 240px !important;
+	max-width: 240px !important;
+	border-right: 1px solid var(--border-color) !important;
+	overflow: hidden !important;
+	box-sizing: border-box !important;
+	padding-right: 8px !important;
+}
+
+.desk-sidebar .desk-sidebar-item,
+.desk-sidebar .standard-sidebar-item {
+	width: 100% !important;
+	box-sizing: border-box !important;
 }
 
 .desk-sidebar .sidebar-menu a,
@@ -72,26 +83,28 @@ body,
 	padding: 10px 16px;
 	border-radius: 8px;
 	margin: 2px 8px;
+	max-width: calc(100% - 16px) !important;
+	box-sizing: border-box !important;
 	transition: all 0.15s ease;
 }
 
 .desk-sidebar .sidebar-menu a:hover,
 .desk-sidebar .standard-sidebar-item a:hover,
 .desk-sidebar .standard-sidebar-item.selected a:hover {
-	background: rgba(255, 255, 255, 0.06) !important;
-	color: #FFFFFF !important;
+	background: #F1F5F9 !important;
+	color: var(--heading-color) !important;
 }
 
 .desk-sidebar .sidebar-menu a.active,
 .desk-sidebar .standard-sidebar-item.selected a,
 .desk-sidebar .standard-sidebar-item a.selected {
 	background: var(--sidebar-active) !important;
-	color: #FFFFFF !important;
+	color: var(--sidebar-accent) !important;
 	border-left: 3px solid var(--sidebar-accent);
 }
 
 .sidebar-label {
-	color: var(--sidebar-text) !important;
+	color: #94A3B8 !important;
 	font-size: 11px !important;
 	text-transform: uppercase !important;
 	letter-spacing: 0.06em !important;
