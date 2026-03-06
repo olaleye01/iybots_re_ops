@@ -68,7 +68,7 @@
     <!-- User section -->
     <div class="sidebar-user">
       <div class="user-dropdown" id="userDropdown">
-        <a href="/api/method/logout" class="user-dropdown-item danger">
+        <a href="#" id="logoutBtn" class="user-dropdown-item danger">
           <i data-lucide="log-out"></i>
           Sign out
         </a>
@@ -173,6 +173,18 @@
     });
     document.addEventListener('click', function () {
       userDropdown.classList.remove('open');
+    });
+  }
+
+  /* ----- Logout ----- */
+  var logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      fetch('/api/method/logout', { method: 'GET', credentials: 'same-origin' })
+        .finally(function () {
+          window.location.href = '/#login';
+        });
     });
   }
 
