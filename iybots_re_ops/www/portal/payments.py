@@ -9,7 +9,7 @@ def get_context(context):
 	client = require_client_or_redirect()
 	context.client = client
 	context.active_page = "payments"
-	context.title = "Payment Schedule"
+	context.title = "Payments"
 
 	prop_names = frappe.get_all(
 		"Property", filters={"primary_client": client.name}, pluck="name", ignore_permissions=True
@@ -42,3 +42,20 @@ def get_context(context):
 			plans.append(plan)
 
 	context.plans = plans
+
+	# Receipts (absorbed into Payments page)
+	receipts = []
+	if prop_names:
+		raw_receipts = frappe.get_all(
+			"Receipt",
+			filters={"client": client.name},
+			fields=["name", "receipt_date", "amount", "property", "file", "notes"],
+			order_by="receipt_date desc",
+			ignore_permissions=True,
+		)
+		for r in raw_receipts:
+			r.amount_fmt = fmt(r.amount or 0)
+			r.prop_name = frappe.db.get_value("Property", r.property, "property_name") if r.property else None
+		receipts = raw_receipts
+
+	context.receipts = receipts

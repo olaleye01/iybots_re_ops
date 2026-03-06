@@ -2,42 +2,46 @@
 {% block title %}My Units{% endblock %}
 
 {% block content %}
-<div class="portal-page">
-  <div class="portal-page-header">
-    <h1>My Units</h1>
-    <p>Properties linked to your account</p>
-  </div>
-
-  {% if properties %}
-    <div class="unit-list">
-      {% for prop in properties %}
-      <a href="/portal/unit?name={{ prop.name }}" class="unit-card">
-        {% if prop.images %}
-          <div class="unit-img" style="background-image:url('{{ prop.images }}')"></div>
-        {% else %}
-          <div class="unit-img unit-img-placeholder">🏠</div>
-        {% endif %}
-        <div class="unit-info">
-          <div class="unit-name">{{ prop.property_name }}</div>
-          {% if prop.project_name %}
-            <div class="unit-project">{{ prop.project_name }}</div>
-          {% endif %}
-          <div class="unit-meta">
-            <span>{{ prop.location or '—' }}</span>
-            <span class="badge badge-{{ 'green' if prop.status == 'Available' else 'blue' if prop.status == 'Reserved' else 'grey' }}">{{ prop.status }}</span>
-          </div>
-          <div class="unit-price">{{ prop.price_fmt }}</div>
-        </div>
-        <div class="unit-arrow">›</div>
-      </a>
-      {% endfor %}
-    </div>
-  {% else %}
-    <div class="portal-empty">
-      <div class="empty-icon">🏠</div>
-      <p>No units linked to your account yet.</p>
-      <p>Contact your agent for assistance.</p>
-    </div>
-  {% endif %}
+<div class="portal-page-header">
+  <i data-lucide="building-2"></i>
+  <h1>My Units</h1>
 </div>
+
+{% if properties %}
+  <div class="unit-list">
+    {% for prop in properties %}
+    <a href="/portal/unit?name={{ prop.name }}" class="unit-card">
+      {% if prop.images %}
+        <div class="unit-img" style="background-image:url('{{ prop.images }}')"></div>
+      {% else %}
+        <div class="unit-img unit-img-placeholder">
+          <i data-lucide="building-2"></i>
+        </div>
+      {% endif %}
+      <div class="unit-info">
+        <div class="unit-name">{{ prop.property_name }}</div>
+        {% if prop.project_name %}
+          <div class="unit-project">{{ prop.project_name }}</div>
+        {% endif %}
+        <div class="unit-meta">
+          <span>{{ prop.location or '—' }}</span>
+          <span class="badge {% if prop.status == 'Sold' %}badge-success{% elif prop.status == 'Reserved' %}badge-info{% else %}badge-grey{% endif %}">
+            {{ prop.status or '—' }}
+          </span>
+        </div>
+        <div class="unit-price">{{ prop.price_fmt }}</div>
+      </div>
+      <div class="unit-arrow">
+        <i data-lucide="chevron-right"></i>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="portal-empty">
+    <div class="empty-icon"><i data-lucide="building-2"></i></div>
+    <h3>No units found</h3>
+    <p>No properties are linked to your account yet.<br>Contact your agent for assistance.</p>
+  </div>
+{% endif %}
 {% endblock %}

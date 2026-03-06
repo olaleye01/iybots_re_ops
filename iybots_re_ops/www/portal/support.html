@@ -2,34 +2,38 @@
 {% block title %}Support{% endblock %}
 
 {% block content %}
-<div class="portal-page">
-  <div class="portal-page-header">
-    <h1>Support</h1>
-    <p>We're here to help</p>
-  </div>
+<div class="portal-page-header">
+  <i data-lucide="headphones"></i>
+  <h1>Support</h1>
+</div>
 
-  <div class="support-options">
-    <a href="https://wa.me/{{ whatsapp_number }}" target="_blank" class="support-card support-whatsapp">
-      <div class="support-icon">💬</div>
-      <div class="support-info">
-        <div class="support-title">WhatsApp</div>
-        <div class="support-desc">Chat with our support team</div>
-      </div>
-      <div class="support-arrow">›</div>
-    </a>
+<p style="font-size:14px; color:var(--color-text-secondary); margin-bottom:var(--space-6);">
+  We're here to help. Reach out through any of the channels below.
+</p>
 
-    <a href="mailto:{{ support_email }}" class="support-card support-email">
-      <div class="support-icon">✉️</div>
-      <div class="support-info">
-        <div class="support-title">Email</div>
-        <div class="support-desc">{{ support_email }}</div>
-      </div>
-      <div class="support-arrow">›</div>
-    </a>
+<a href="https://wa.me/{{ whatsapp_number }}" target="_blank" class="support-contact-card">
+  <div class="support-icon support-icon-whatsapp">
+    <i data-lucide="message-circle"></i>
   </div>
+  <div class="support-content">
+    <h3>WhatsApp</h3>
+    <p>Chat directly with our support team for fast responses</p>
+  </div>
+  <div class="support-arrow"><i data-lucide="chevron-right"></i></div>
+</a>
 
-  <div class="support-note">
-    <p>For urgent issues, please use WhatsApp. We typically respond within 24 hours on business days.</p>
+<a href="mailto:{{ support_email }}" class="support-contact-card">
+  <div class="support-icon support-icon-email">
+    <i data-lucide="mail"></i>
   </div>
+  <div class="support-content">
+    <h3>Email</h3>
+    <p>{{ support_email }}</p>
+  </div>
+  <div class="support-arrow"><i data-lucide="chevron-right"></i></div>
+</a>
+
+<div class="support-note">
+  For urgent issues, please use WhatsApp. We typically respond within 24 hours on business days.
 </div>
 {% endblock %}

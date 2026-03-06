@@ -2,86 +2,156 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="portal-page">
+<div class="portal-main-content">
+
+  <!-- Greeting bar -->
   <div class="portal-greeting">
-    <h1>Welcome, {{ client.client_name.split()[0] }} 👋</h1>
-    <p class="portal-subtitle">Here's your property overview</p>
-  </div>
-
-  <!-- Summary cards -->
-  <div class="portal-cards">
-    <div class="portal-card {% if next_due and next_due.status == 'Overdue' %}card-danger{% elif next_due %}card-warning{% else %}card-success{% endif %}">
-      <div class="card-icon">📅</div>
-      <div class="card-body">
-        <div class="card-label">Next Payment Due</div>
-        {% if next_due %}
-          <div class="card-value">{{ next_due.amount_fmt }}</div>
-          <div class="card-sub">{{ frappe.utils.formatdate(next_due.due_date) }} · <span class="badge badge-{{ 'red' if next_due.status == 'Overdue' else 'orange' }}">{{ next_due.status }}</span></div>
-        {% else %}
-          <div class="card-value">—</div>
-          <div class="card-sub">No pending payments</div>
-        {% endif %}
-      </div>
-    </div>
-
-    <div class="portal-card">
-      <div class="card-icon">✅</div>
-      <div class="card-body">
-        <div class="card-label">Total Paid</div>
-        <div class="card-value">{{ total_paid }}</div>
-      </div>
-    </div>
-
-    <div class="portal-card">
-      <div class="card-icon">⏳</div>
-      <div class="card-body">
-        <div class="card-label">Outstanding</div>
-        <div class="card-value">{{ total_outstanding }}</div>
-      </div>
-    </div>
-
-    <div class="portal-card">
-      <div class="card-icon">🏠</div>
-      <div class="card-body">
-        <div class="card-label">My Units</div>
-        <div class="card-value">{{ property_count }}</div>
-      </div>
+    <div>
+      <h1 id="greetingText">Welcome, {{ client.client_name.split()[0] }}</h1>
+      <p>Here is your property overview</p>
     </div>
   </div>
 
-  <!-- Latest progress update -->
-  {% if latest_update %}
-  <div class="portal-section">
-    <div class="section-header">
-      <h2>Latest Update</h2>
-      <a href="/portal/progress" class="section-link">View all →</a>
-    </div>
-    <a href="/portal/progress" class="update-card">
-      {% if latest_update.thumb %}
-        <img src="{{ latest_update.thumb }}" class="update-thumb" alt="Progress photo" />
+  <!-- Metric cards -->
+  <div class="metric-cards">
+
+    <!-- Next Payment Due -->
+    <a href="/portal/payments" class="metric-card">
+      <div class="metric-icon metric-icon-warning">
+        <i data-lucide="calendar-clock"></i>
+      </div>
+      <div class="metric-label">Next Payment Due</div>
+      {% if next_due %}
+        <div class="metric-value">{{ next_due.amount_fmt }}</div>
+        <div class="metric-sub">
+          {{ frappe.utils.formatdate(next_due.due_date) }}
+          &nbsp;
+          <span class="badge {% if next_due.status == 'Overdue' %}badge-danger{% else %}badge-warning{% endif %}">
+            {{ next_due.status }}
+          </span>
+        </div>
+      {% else %}
+        <div class="metric-value" style="font-size:20px;">—</div>
+        <div class="metric-sub">No pending payments</div>
       {% endif %}
-      <div class="update-info">
-        <div class="update-title">{{ latest_update.title }}</div>
-        <div class="update-date">{{ frappe.utils.formatdate(latest_update.update_date) }}</div>
-        {% if latest_update.description %}
-          <div class="update-excerpt">{{ latest_update.description | striptags | truncate(100) }}</div>
+    </a>
+
+    <!-- Total Paid -->
+    <a href="/portal/payments" class="metric-card">
+      <div class="metric-icon metric-icon-success">
+        <i data-lucide="circle-check"></i>
+      </div>
+      <div class="metric-label">Total Paid</div>
+      <div class="metric-value">{{ total_paid }}</div>
+      <div class="metric-sub">{{ total_paid_pct }}% of total cost</div>
+    </a>
+
+    <!-- Outstanding -->
+    <a href="/portal/payments" class="metric-card">
+      <div class="metric-icon metric-icon-danger">
+        <i data-lucide="alert-triangle"></i>
+      </div>
+      <div class="metric-label">Outstanding</div>
+      <div class="metric-value">{{ total_outstanding }}</div>
+      <div class="metric-sub">Remaining balance</div>
+    </a>
+
+    <!-- My Units -->
+    <a href="/portal/units" class="metric-card">
+      <div class="metric-icon metric-icon-primary">
+        <i data-lucide="building-2"></i>
+      </div>
+      <div class="metric-label">My Units</div>
+      <div class="metric-value">{{ property_count }}</div>
+      <div class="metric-sub">View unit details &rarr;</div>
+    </a>
+
+  </div>
+
+  <!-- Two-column row: Upcoming payments + Construction progress -->
+  <div class="dashboard-row">
+
+    <!-- Upcoming Payments table -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Upcoming Payments</span>
+        <a href="/portal/payments" class="card-link">View all &rarr;</a>
+      </div>
+      {% if upcoming_milestones %}
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Due Date</th>
+              <th>Property</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for m in upcoming_milestones %}
+            <tr>
+              <td>{{ frappe.utils.formatdate(m.due_date) }}</td>
+              <td>{{ m.property_name or '—' }}</td>
+              <td>{{ m.amount_fmt }}</td>
+              <td>
+                <span class="badge {% if m.status == 'Overdue' %}badge-danger{% else %}badge-warning{% endif %}">
+                  {{ m.status }}
+                </span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="card-body" style="text-align:center; padding: 32px; color: var(--color-text-muted);">
+          <i data-lucide="calendar-x" style="width:32px;height:32px;margin:0 auto 12px;display:block;"></i>
+          <p style="font-size:13px;">No upcoming payments</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Construction Progress card -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Construction Progress</span>
+        <a href="/portal/progress" class="card-link">View timeline &rarr;</a>
+      </div>
+      <div class="card-body">
+        {% if latest_update %}
+          <div class="progress-label-row">
+            <span><strong>Payment completion</strong></span>
+            <span>{{ total_paid_pct }}%</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" style="width: {{ total_paid_pct }}%"></div>
+          </div>
+          <div class="progress-phase">{{ latest_update.title }}</div>
+          {% if latest_update.description %}
+            <div class="progress-desc">{{ latest_update.description | striptags | truncate(120) }}</div>
+          {% endif %}
+          <div style="margin-top:12px; font-size:12px; color:var(--color-text-muted);">
+            Last updated: {{ frappe.utils.formatdate(latest_update.update_date) }}
+          </div>
+        {% else %}
+          <div style="text-align:center; padding: 24px 0; color:var(--color-text-muted);">
+            <i data-lucide="hard-hat" style="width:32px;height:32px;margin:0 auto 12px;display:block;"></i>
+            <p style="font-size:13px;">Construction updates will appear here</p>
+          </div>
         {% endif %}
       </div>
-    </a>
-  </div>
-  {% endif %}
-
-  <!-- Quick links -->
-  <div class="portal-section">
-    <h2>Quick Links</h2>
-    <div class="quick-links">
-      <a href="/portal/units" class="quick-link">🏠 My Units</a>
-      <a href="/portal/payments" class="quick-link">💳 Payments</a>
-      <a href="/portal/receipts" class="quick-link">🧾 Receipts</a>
-      <a href="/portal/progress" class="quick-link">📸 Progress</a>
-      <a href="/portal/documents" class="quick-link">📄 Documents</a>
-      <a href="/portal/support" class="quick-link">💬 Support</a>
     </div>
+
   </div>
+
 </div>
+
+{% block scripts %}
+<script>
+  // Time-based greeting
+  var hour = new Date().getHours();
+  var greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  var el = document.getElementById('greetingText');
+  if (el) el.textContent = greeting + ', {{ client.client_name.split()[0] }}';
+</script>
+{% endblock %}
 {% endblock %}

@@ -8,58 +8,187 @@
   {% block head %}{% endblock %}
 </head>
 <body>
-  <!-- Top bar -->
-  <header class="portal-header">
-    <div class="portal-header-inner">
-      <a href="/portal" class="portal-logo">
-        <img src="/assets/iybots_re_ops/images/logo.png" alt="Iybots" onerror="this.style.display='none'" />
-        <span>Iybots RE</span>
+<div class="portal-wrapper">
+
+  <!-- Mobile overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ============================
+       SIDEBAR
+       ============================ -->
+  <aside class="portal-sidebar" id="portalSidebar">
+
+    <!-- Logo -->
+    <div class="sidebar-logo">
+      <img src="/assets/iybots_re_ops/images/logo.png" alt="Iybots RE"
+           onerror="this.style.display='none'" />
+      <span class="sidebar-logo-text">Iybots RE</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-nav">
+      <a href="/portal"
+         class="sidebar-nav-item {% if active_page == 'dashboard' %}active{% endif %}"
+         data-tooltip="Dashboard">
+        <i data-lucide="layout-dashboard"></i>
+        <span class="sidebar-nav-label">Dashboard</span>
       </a>
-      <div class="portal-user">
-        <span class="portal-user-name">{{ client.client_name }}</span>
-        <a href="/api/method/logout" class="portal-logout-btn">Logout</a>
+      <a href="/portal/units"
+         class="sidebar-nav-item {% if active_page == 'units' %}active{% endif %}"
+         data-tooltip="My Units">
+        <i data-lucide="building-2"></i>
+        <span class="sidebar-nav-label">My Units</span>
+      </a>
+      <a href="/portal/payments"
+         class="sidebar-nav-item {% if active_page == 'payments' %}active{% endif %}"
+         data-tooltip="Payments">
+        <i data-lucide="credit-card"></i>
+        <span class="sidebar-nav-label">Payments</span>
+      </a>
+      <a href="/portal/progress"
+         class="sidebar-nav-item {% if active_page == 'progress' %}active{% endif %}"
+         data-tooltip="Progress">
+        <i data-lucide="hard-hat"></i>
+        <span class="sidebar-nav-label">Progress</span>
+      </a>
+      <a href="/portal/documents"
+         class="sidebar-nav-item {% if active_page == 'documents' %}active{% endif %}"
+         data-tooltip="Documents">
+        <i data-lucide="file-text"></i>
+        <span class="sidebar-nav-label">Documents</span>
+      </a>
+      <a href="/portal/support"
+         class="sidebar-nav-item {% if active_page == 'support' %}active{% endif %}"
+         data-tooltip="Support">
+        <i data-lucide="headphones"></i>
+        <span class="sidebar-nav-label">Support</span>
+      </a>
+    </nav>
+
+    <!-- User section -->
+    <div class="sidebar-user">
+      <div class="user-dropdown" id="userDropdown">
+        <a href="/api/method/logout" class="user-dropdown-item danger">
+          <i data-lucide="log-out"></i>
+          Sign out
+        </a>
+      </div>
+      <div class="sidebar-user-trigger" id="userTrigger">
+        <div class="sidebar-avatar">{{ (client.client_name or 'C')[0] | upper }}</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name">{{ client.client_name }}</div>
+          <div class="sidebar-user-role">Client</div>
+        </div>
+        <i data-lucide="chevrons-up-down" class="sidebar-user-chevron"></i>
       </div>
     </div>
-  </header>
 
-  <!-- Bottom nav (mobile) / Side nav (desktop) -->
-  <nav class="portal-nav">
-    <a href="/portal" class="nav-item {% if active_page == 'dashboard' %}active{% endif %}">
-      <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-      <span>Dashboard</span>
-    </a>
-    <a href="/portal/units" class="nav-item {% if active_page == 'units' %}active{% endif %}">
-      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      <span>My Units</span>
-    </a>
-    <a href="/portal/payments" class="nav-item {% if active_page == 'payments' %}active{% endif %}">
-      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
-      <span>Payments</span>
-    </a>
-    <a href="/portal/progress" class="nav-item {% if active_page == 'progress' %}active{% endif %}">
-      <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-      <span>Progress</span>
-    </a>
-    <a href="/portal/documents" class="nav-item {% if active_page == 'documents' %}active{% endif %}">
-      <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-      <span>Documents</span>
-    </a>
-    <a href="/portal/support" class="nav-item {% if active_page == 'support' %}active{% endif %}">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
-      <span>Support</span>
-    </a>
-  </nav>
+    <!-- Collapse toggle (desktop only) -->
+    <div class="sidebar-toggle">
+      <button class="sidebar-toggle-btn" id="sidebarToggle" title="Toggle sidebar">
+        <i data-lucide="chevrons-left"></i>
+      </button>
+    </div>
 
-  <!-- Main content -->
-  <main class="portal-main">
-    {% block content %}{% endblock %}
-  </main>
+  </aside>
 
-  <script>
-    // Mark active nav on mobile
-    document.querySelectorAll('.nav-item').forEach(el => {
-      if (window.location.pathname === el.getAttribute('href')) el.classList.add('active');
+  <!-- ============================
+       MAIN AREA
+       ============================ -->
+  <div class="portal-main-area" id="portalMainArea">
+
+    <!-- Mobile topbar -->
+    <header class="portal-topbar">
+      <button class="topbar-hamburger" id="hamburgerBtn" aria-label="Open menu">
+        <i data-lucide="menu"></i>
+      </button>
+      <div class="topbar-logo">
+        <img src="/assets/iybots_re_ops/images/logo.png" alt="Iybots RE"
+             onerror="this.style.display='none'" />
+        <span>Iybots RE</span>
+      </div>
+      <div class="topbar-spacer"></div>
+    </header>
+
+    <!-- Page content -->
+    <main class="portal-main">
+      {% block content %}{% endblock %}
+    </main>
+
+  </div>
+</div>
+
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  lucide.createIcons();
+
+  /* ----- Sidebar collapse (desktop) ----- */
+  var sidebar    = document.getElementById('portalSidebar');
+  var mainArea   = document.getElementById('portalMainArea');
+  var toggleBtn  = document.getElementById('sidebarToggle');
+  var KEY        = 'portalSidebarCollapsed';
+
+  function setSidebarCollapsed(collapsed) {
+    sidebar.classList.toggle('collapsed', collapsed);
+    mainArea.classList.toggle('sidebar-collapsed', collapsed);
+  }
+
+  setSidebarCollapsed(localStorage.getItem(KEY) === 'true');
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function () {
+      var nowCollapsed = sidebar.classList.contains('collapsed');
+      setSidebarCollapsed(!nowCollapsed);
+      localStorage.setItem(KEY, !nowCollapsed);
     });
-  </script>
+  }
+
+  /* ----- Mobile drawer ----- */
+  var overlay    = document.getElementById('sidebarOverlay');
+  var hamburger  = document.getElementById('hamburgerBtn');
+
+  function openDrawer() {
+    sidebar.classList.add('mobile-open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    sidebar.classList.remove('mobile-open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (hamburger) hamburger.addEventListener('click', openDrawer);
+  if (overlay)   overlay.addEventListener('click', closeDrawer);
+
+  /* ----- User dropdown ----- */
+  var userTrigger  = document.getElementById('userTrigger');
+  var userDropdown = document.getElementById('userDropdown');
+
+  if (userTrigger) {
+    userTrigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      userDropdown.classList.toggle('open');
+    });
+    document.addEventListener('click', function () {
+      userDropdown.classList.remove('open');
+    });
+  }
+
+  /* ----- Tab switching (payments page) ----- */
+  document.querySelectorAll('.page-tab').forEach(function (tab) {
+    tab.addEventListener('click', function (e) {
+      e.preventDefault();
+      var target = tab.getAttribute('data-tab');
+      document.querySelectorAll('.page-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.tab-pane').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      var pane = document.getElementById(target);
+      if (pane) pane.classList.add('active');
+    });
+  });
+</script>
+{% block scripts %}{% endblock %}
 </body>
 </html>

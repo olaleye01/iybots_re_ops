@@ -2,35 +2,7 @@
 {% block title %}Receipts{% endblock %}
 
 {% block content %}
-<div class="portal-page">
-  <div class="portal-page-header">
-    <h1>Receipts</h1>
-  </div>
-
-  {% if receipts %}
-    <div class="doc-list">
-      {% for r in receipts %}
-      <div class="doc-item">
-        <div class="doc-icon">🧾</div>
-        <div class="doc-info">
-          <div class="doc-name">{{ r.name }}</div>
-          <div class="doc-meta">
-            {{ frappe.utils.formatdate(r.receipt_date) }}
-            {% if r.prop_name %} · {{ r.prop_name }}{% endif %}
-          </div>
-          <div class="doc-amount">{{ r.amount_fmt }}</div>
-        </div>
-        {% if r.file %}
-          <a href="{{ r.file }}" target="_blank" class="doc-download-btn" download>⬇</a>
-        {% endif %}
-      </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <div class="portal-empty">
-      <div class="empty-icon">🧾</div>
-      <p>No receipts available yet.</p>
-    </div>
-  {% endif %}
-</div>
+{# Receipts are now part of the Payments page (Receipts tab).
+   This page redirects there for backwards compatibility. #}
+<script>window.location.replace('/portal/payments');</script>
 {% endblock %}

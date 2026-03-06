@@ -2,40 +2,46 @@
 {% block title %}Documents{% endblock %}
 
 {% block content %}
-<div class="portal-page">
-  <div class="portal-page-header">
-    <h1>Documents</h1>
-  </div>
-
-  {% if documents %}
-    <div class="doc-list">
-      {% for d in documents %}
-      <div class="doc-item">
-        <div class="doc-icon">
-          {% if d.document_type == 'Contract' %}📝
-          {% elif d.document_type == 'Allocation Letter' %}📋
-          {% else %}📄{% endif %}
-        </div>
-        <div class="doc-info">
-          <div class="doc-name">{{ d.document_type or 'Document' }}</div>
-          <div class="doc-meta">
-            {{ frappe.utils.formatdate(d.uploaded_on) if d.uploaded_on else '—' }}
-            {% if d.prop_name %} · {{ d.prop_name }}{% endif %}
-          </div>
-          {% if d.notes %}<div class="doc-notes">{{ d.notes }}</div>{% endif %}
-        </div>
-        {% if d.file %}
-          <a href="{{ d.file }}" target="_blank" class="doc-download-btn" download>⬇</a>
-        {% endif %}
-      </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <div class="portal-empty">
-      <div class="empty-icon">📄</div>
-      <p>No documents available yet.</p>
-      <p>Contact your agent if you're expecting documents.</p>
-    </div>
-  {% endif %}
+<div class="portal-page-header">
+  <i data-lucide="file-text"></i>
+  <h1>Documents</h1>
 </div>
+
+{% if documents %}
+  <div class="doc-list">
+    {% for d in documents %}
+    <div class="doc-item">
+      <!-- Icon by document type -->
+      {% if d.document_type in ['Contract', 'Allocation Letter'] %}
+        <div class="doc-type-icon contract"><i data-lucide="file-signature"></i></div>
+      {% elif d.document_type == 'Receipt' %}
+        <div class="doc-type-icon contract"><i data-lucide="receipt"></i></div>
+      {% else %}
+        <div class="doc-type-icon other"><i data-lucide="file"></i></div>
+      {% endif %}
+
+      <div class="doc-info">
+        <div class="doc-name">{{ d.document_type or 'Document' }}</div>
+        <div class="doc-meta">
+          <span>{{ frappe.utils.formatdate(d.uploaded_on) if d.uploaded_on else '—' }}</span>
+          {% if d.prop_name %}<span>{{ d.prop_name }}</span>{% endif %}
+          {% if d.notes %}<span>{{ d.notes }}</span>{% endif %}
+        </div>
+      </div>
+
+      {% if d.file %}
+        <a href="{{ d.file }}" target="_blank" class="doc-download" download title="Download">
+          <i data-lucide="download"></i>
+        </a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="portal-empty">
+    <div class="empty-icon"><i data-lucide="folder-open"></i></div>
+    <h3>No documents yet</h3>
+    <p>Your contracts and documents will appear here.<br>Contact your agent if you're expecting documents.</p>
+  </div>
+{% endif %}
 {% endblock %}

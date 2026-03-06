@@ -1,21 +1,36 @@
 {% extends "iybots_re_ops/templates/portal_base.html" %}
-{% block title %}Payment Schedule{% endblock %}
+{% block title %}Payments{% endblock %}
 
 {% block content %}
-<div class="portal-page">
-  <div class="portal-page-header">
-    <h1>Payment Schedule</h1>
-  </div>
+<div class="portal-page-header">
+  <i data-lucide="credit-card"></i>
+  <h1>Payments</h1>
+</div>
 
+<!-- Tabs -->
+<div class="page-tabs">
+  <a class="page-tab active" data-tab="tab-schedule" href="#">Payment Schedule</a>
+  <a class="page-tab" data-tab="tab-receipts" href="#">Receipts</a>
+</div>
+
+<!-- Tab: Payment Schedule -->
+<div class="tab-pane active" id="tab-schedule">
   {% if plans %}
     {% for plan in plans %}
     <div class="plan-card">
       <div class="plan-header">
         <div>
           <div class="plan-title">{{ plan.plan_title or plan.name }}</div>
-          {% if plan.prop_name %}<div class="plan-property">🏠 {{ plan.prop_name }}</div>{% endif %}
+          {% if plan.prop_name %}
+            <div class="plan-property">
+              <i data-lucide="map-pin"></i>
+              {{ plan.prop_name }}
+            </div>
+          {% endif %}
         </div>
-        <span class="badge badge-{{ 'green' if plan.status == 'Completed' else 'blue' if plan.status == 'Active' else 'grey' }}">{{ plan.status }}</span>
+        <span class="badge {% if plan.status == 'Completed' %}badge-success{% elif plan.status == 'Active' %}badge-info{% else %}badge-grey{% endif %}">
+          {{ plan.status or '—' }}
+        </span>
       </div>
 
       <div class="plan-summary">
@@ -25,31 +40,35 @@
         </div>
         <div class="plan-stat">
           <div class="plan-stat-label">Paid</div>
-          <div class="plan-stat-value green">{{ plan.total_paid_fmt }}</div>
+          <div class="plan-stat-value success">{{ plan.total_paid_fmt }}</div>
         </div>
         <div class="plan-stat">
           <div class="plan-stat-label">Outstanding</div>
-          <div class="plan-stat-value orange">{{ plan.total_outstanding_fmt }}</div>
+          <div class="plan-stat-value warning">{{ plan.total_outstanding_fmt }}</div>
         </div>
       </div>
 
       <div class="milestone-table-wrapper">
-        <table class="milestone-table">
+        <table class="schedule-table">
           <thead>
             <tr>
               <th>Due Date</th>
               <th>Amount</th>
               <th>Status</th>
-              <th>Ref</th>
+              <th>Reference</th>
             </tr>
           </thead>
           <tbody>
             {% for m in plan.milestones %}
-            <tr class="milestone-row status-{{ m.status | lower | replace(' ', '-') }}">
+            <tr>
               <td>{{ frappe.utils.formatdate(m.due_date) }}</td>
               <td>{{ m.amount_fmt }}</td>
-              <td><span class="badge badge-{{ 'green' if m.status == 'Paid' else 'red' if m.status == 'Overdue' else 'orange' }}">{{ m.status }}</span></td>
-              <td>{{ m.payment_ref or '—' }}</td>
+              <td>
+                <span class="badge {% if m.status == 'Paid' %}badge-success{% elif m.status == 'Overdue' %}badge-danger{% else %}badge-warning{% endif %}">
+                  {{ m.status }}
+                </span>
+              </td>
+              <td style="color:var(--color-text-muted);">{{ m.payment_ref or '—' }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -59,8 +78,41 @@
     {% endfor %}
   {% else %}
     <div class="portal-empty">
-      <div class="empty-icon">💳</div>
-      <p>No payment plans found for your properties.</p>
+      <div class="empty-icon"><i data-lucide="credit-card"></i></div>
+      <h3>No payment plans</h3>
+      <p>No payment plans have been set up for your properties yet.</p>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Tab: Receipts -->
+<div class="tab-pane" id="tab-receipts">
+  {% if receipts %}
+    <div class="receipt-list">
+      {% for r in receipts %}
+      <div class="receipt-item">
+        <div class="receipt-icon"><i data-lucide="receipt"></i></div>
+        <div class="receipt-info">
+          <div class="receipt-amount">{{ r.amount_fmt }}</div>
+          <div class="receipt-meta">
+            {{ frappe.utils.formatdate(r.receipt_date) if r.receipt_date else '—' }}
+            {% if r.prop_name %} &middot; {{ r.prop_name }}{% endif %}
+            {% if r.notes %} &middot; {{ r.notes }}{% endif %}
+          </div>
+        </div>
+        {% if r.file %}
+          <a href="{{ r.file }}" target="_blank" class="doc-download" download title="Download receipt">
+            <i data-lucide="download"></i>
+          </a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="portal-empty">
+      <div class="empty-icon"><i data-lucide="receipt"></i></div>
+      <h3>No receipts yet</h3>
+      <p>Receipts will appear here after payments are confirmed.</p>
     </div>
   {% endif %}
 </div>

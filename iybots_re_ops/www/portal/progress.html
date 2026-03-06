@@ -1,42 +1,58 @@
 {% extends "iybots_re_ops/templates/portal_base.html" %}
-{% block title %}Progress Updates{% endblock %}
+{% block title %}Construction Progress{% endblock %}
 
 {% block content %}
-<div class="portal-page">
-  <div class="portal-page-header">
-    <h1>Progress Updates</h1>
-  </div>
+<div class="portal-page-header">
+  <i data-lucide="hard-hat"></i>
+  <h1>Construction Progress</h1>
+</div>
 
-  {% if updates %}
-    <div class="progress-feed">
-      {% for u in updates %}
-      <div class="progress-card">
-        <div class="progress-meta">
-          <span class="progress-date">{{ frappe.utils.formatdate(u.update_date) }}</span>
-          {% if u.project_name %}<span class="progress-project">{{ u.project_name }}</span>{% endif %}
-        </div>
-        <h2 class="progress-title">{{ u.title }}</h2>
-        {% if u.photos %}
-          <div class="progress-photos">
-            {% for photo in u.photos %}
-              <div class="progress-photo-wrapper">
-                <img src="{{ photo.image }}" alt="{{ photo.caption or u.title }}" class="progress-photo" loading="lazy" />
-                {% if photo.caption %}<div class="photo-caption">{{ photo.caption }}</div>{% endif %}
-              </div>
-            {% endfor %}
-          </div>
-        {% endif %}
-        {% if u.description %}
-          <div class="progress-description">{{ u.description }}</div>
+{% if updates %}
+  <div class="progress-timeline">
+    {% for u in updates %}
+    <div class="timeline-item">
+      <div class="timeline-dot {% if loop.first %}current{% else %}done{% endif %}">
+        {% if not loop.first %}<i data-lucide="check"></i>{% endif %}
+      </div>
+
+      <div class="timeline-date">
+        {{ frappe.utils.formatdate(u.update_date) }}
+        {% if u.project_name %}
+          &middot;
+          <span style="color:var(--color-primary);">{{ u.project_name }}</span>
         {% endif %}
       </div>
-      {% endfor %}
+
+      <div class="timeline-title">{{ u.title }}</div>
+
+      {% if u.photos %}
+        <div class="timeline-photos">
+          {% for photo in u.photos %}
+            <div class="timeline-photo">
+              <img src="{{ photo.image }}" alt="{{ photo.caption or u.title }}" loading="lazy" />
+            </div>
+          {% endfor %}
+        </div>
+        {% if u.photos | length > 1 %}
+          {% for photo in u.photos %}
+            {% if photo.caption %}
+              <div class="photo-caption">{{ photo.caption }}</div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endif %}
+
+      {% if u.description %}
+        <div class="timeline-desc" style="margin-top: 8px;">{{ u.description }}</div>
+      {% endif %}
     </div>
-  {% else %}
-    <div class="portal-empty">
-      <div class="empty-icon">📸</div>
-      <p>No progress updates available yet.</p>
-    </div>
-  {% endif %}
-</div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="portal-empty">
+    <div class="empty-icon"><i data-lucide="hard-hat"></i></div>
+    <h3>No updates yet</h3>
+    <p>Construction updates will appear here as your project progresses.</p>
+  </div>
+{% endif %}
 {% endblock %}
