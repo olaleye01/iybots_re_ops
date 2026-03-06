@@ -1,0 +1,37 @@
+[
+    {
+        "doctype": "Role",
+        "name": "MD",
+        "role_name": "MD",
+        "desk_access": 1,
+        "is_custom": 1
+    },
+    {
+        "doctype": "Role",
+        "name": "RE Admin",
+        "role_name": "RE Admin",
+        "desk_access": 1,
+        "is_custom": 1
+    },
+    {
+        "doctype": "Role",
+        "name": "RE Agent",
+        "role_name": "RE Agent",
+        "desk_access": 1,
+        "is_custom": 1
+    },
+    {
+        "doctype": "Role",
+        "name": "HR",
+        "role_name": "HR",
+        "desk_access": 1,
+        "is_custom": 1
+    },
+    {
+        "doctype": "Role",
+        "name": "Client Portal User",
+        "role_name": "Client Portal User",
+        "desk_access": 0,
+        "is_custom": 1
+    }
+]

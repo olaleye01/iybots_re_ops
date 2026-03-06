@@ -9,8 +9,16 @@ from frappe.model.document import Document
 class CommissionRecord(Document):
 	def validate(self):
 		self.fetch_deal_value()
+		self.populate_agent()
 		self.calculate_commission()
 		self.validate_splits()
+
+	def populate_agent(self):
+		"""Set agent from linked Opportunity's opportunity_owner."""
+		if self.opportunity and not self.agent:
+			self.agent = frappe.db.get_value(
+				"Opportunity", self.opportunity, "opportunity_owner"
+			)
 
 	def fetch_deal_value(self):
 		"""Fetch deal value from linked Opportunity."""

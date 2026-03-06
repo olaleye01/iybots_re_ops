@@ -29,7 +29,7 @@ app_include_css = "/assets/iybots_re_ops/css/iybots_theme.css"
 # app_include_js = "/assets/iybots_re_ops/js/iybots_re_ops.js"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/iybots_re_ops/css/iybots_re_ops.css"
+web_include_css = "/assets/iybots_re_ops/css/portal.css"
 # web_include_js = "/assets/iybots_re_ops/js/iybots_re_ops.js"
 
 # include custom scss in every website theme (without file extension ".scss")
@@ -60,9 +60,9 @@ app_include_css = "/assets/iybots_re_ops/css/iybots_theme.css"
 # home_page = "login"
 
 # website user home page (by Role)
-# role_home_page = {
-# 	"Role": "home_page"
-# }
+role_home_page = {
+	"Client Portal User": "portal"
+}
 
 # Generators
 # ----------
@@ -115,15 +115,24 @@ app_include_css = "/assets/iybots_re_ops/css/iybots_theme.css"
 
 # Permissions
 # -----------
-# Permissions evaluated in scripted ways
+# Row-level security: RE Agent sees only their own records.
+# Uses lead_owner (Lead), opportunity_owner (Opportunity), agent (Commission Record, Agent Check-in).
 
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
-#
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
+_perm = "iybots_re_ops.iybots_real_estate_ops.permissions"
+
+permission_query_conditions = {
+	"Lead":              f"{_perm}.get_permission_query_conditions_for_lead",
+	"Opportunity":       f"{_perm}.get_permission_query_conditions_for_opportunity",
+	"Commission Record": f"{_perm}.get_permission_query_conditions_for_commission_record",
+	"Agent Check-in":    f"{_perm}.get_permission_query_conditions_for_agent_check_in",
+}
+
+has_permission = {
+	"Lead":              f"{_perm}.has_permission_for_lead",
+	"Opportunity":       f"{_perm}.has_permission_for_opportunity",
+	"Commission Record": f"{_perm}.has_permission_for_commission_record",
+	"Agent Check-in":    f"{_perm}.has_permission_for_agent_check_in",
+}
 
 # DocType Class
 # ---------------
@@ -137,9 +146,16 @@ app_include_css = "/assets/iybots_re_ops/css/iybots_theme.css"
 # ---------------
 # Hook on document methods and events
 
+_crm = "iybots_re_ops.iybots_real_estate_ops.crm_hooks"
+_comm = "iybots_re_ops.iybots_real_estate_ops.doctype.commission_record.commission_record"
+
 doc_events = {
 	"Opportunity": {
-		"on_update": "iybots_re_ops.iybots_real_estate_ops.doctype.commission_record.commission_record.auto_create_commission"
+		"before_insert": f"{_crm}.opportunity_before_insert",
+		"on_update": [
+			f"{_crm}.opportunity_on_closed_won",
+			f"{_comm}.auto_create_commission",
+		],
 	}
 }
 
@@ -229,6 +245,7 @@ scheduler_events = {
 # }
 
 fixtures = [
+    {"dt": "Role", "filters": [["name", "in", ["MD", "RE Admin", "RE Agent", "HR", "Client Portal User"]]]},
     {"dt": "Custom Field", "filters": [["module", "=", "Iybots Real Estate Ops"]]},
     {"dt": "Property Type", "filters": [["module", "=", "Iybots Real Estate Ops"]]},
     {"dt": "Sales Stage", "filters": [["name", "in", ["Inquiry", "Site Visit", "Offer", "Payment Plan", "Closed Won", "Closed Lost"]]]},

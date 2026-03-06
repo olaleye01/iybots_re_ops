@@ -1,0 +1,94 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"xJt0J4Xg7y\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Real Estate KPIs</span>\",\"col\":12}},{\"id\":\"jH2G6rP5cQ\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quick Links</span>\",\"col\":12}},{\"id\":\"vX8T3wN9oE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Properties\",\"col\":4}},{\"id\":\"cZ5M7bY1fR\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payment Plans\",\"col\":4}},{\"id\":\"gL4K9sJ2vW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commission Records\",\"col\":4}}]",
+ "creation": "2026-03-06 12:54:04.568374",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "dashboard",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "CEO Dashboard",
+ "links": [
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Properties",
+   "link_count": 0,
+   "link_to": "Property",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Payment Plans",
+   "link_count": 0,
+   "link_to": "Payment Plan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Commission Records",
+   "link_count": 0,
+   "link_to": "Commission Record",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-03-06 15:01:08.287010",
+ "modified_by": "Administrator",
+ "module": "Iybots Real Estate Ops",
+ "name": "CEO Dashboard",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "MD"
+  },
+  {
+   "role": "RE Admin"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "format": "{} Open",
+   "label": "Properties",
+   "link_to": "Property",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "format": "{} Pending",
+   "label": "Commission Records",
+   "link_to": "Commission Record",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "format": "{} Active",
+   "label": "Payment Plans",
+   "link_to": "Payment Plan",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "CEO Dashboard"
+}

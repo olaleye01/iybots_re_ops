@@ -7,7 +7,25 @@ from frappe.model.document import Document
 
 class PaymentPlan(Document):
 	def validate(self):
+		self.populate_customer()
 		self.calculate_totals()
+
+	def populate_customer(self):
+		"""Auto-fill Customer from the linked Opportunity's Lead."""
+		if not self.opportunity or self.customer:
+			return
+
+		opp = frappe.db.get_value(
+			"Opportunity", self.opportunity, ["opportunity_from", "party_name"], as_dict=True
+		)
+		if not opp:
+			return
+
+		if opp.opportunity_from == "Lead" and opp.party_name:
+			from iybots_re_ops.iybots_real_estate_ops.crm_hooks import get_or_create_customer_from_lead
+			self.customer = get_or_create_customer_from_lead(opp.party_name)
+		elif opp.opportunity_from == "Customer" and opp.party_name:
+			self.customer = opp.party_name
 
 	def calculate_totals(self):
 		"""Compute total_paid and total_outstanding from milestones."""

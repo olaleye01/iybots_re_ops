@@ -1,0 +1,67 @@
+{% extends "iybots_re_ops/templates/portal_base.html" %}
+{% block title %}Payment Schedule{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+  <div class="portal-page-header">
+    <h1>Payment Schedule</h1>
+  </div>
+
+  {% if plans %}
+    {% for plan in plans %}
+    <div class="plan-card">
+      <div class="plan-header">
+        <div>
+          <div class="plan-title">{{ plan.plan_title or plan.name }}</div>
+          {% if plan.prop_name %}<div class="plan-property">🏠 {{ plan.prop_name }}</div>{% endif %}
+        </div>
+        <span class="badge badge-{{ 'green' if plan.status == 'Completed' else 'blue' if plan.status == 'Active' else 'grey' }}">{{ plan.status }}</span>
+      </div>
+
+      <div class="plan-summary">
+        <div class="plan-stat">
+          <div class="plan-stat-label">Total</div>
+          <div class="plan-stat-value">{{ plan.total_amount_fmt }}</div>
+        </div>
+        <div class="plan-stat">
+          <div class="plan-stat-label">Paid</div>
+          <div class="plan-stat-value green">{{ plan.total_paid_fmt }}</div>
+        </div>
+        <div class="plan-stat">
+          <div class="plan-stat-label">Outstanding</div>
+          <div class="plan-stat-value orange">{{ plan.total_outstanding_fmt }}</div>
+        </div>
+      </div>
+
+      <div class="milestone-table-wrapper">
+        <table class="milestone-table">
+          <thead>
+            <tr>
+              <th>Due Date</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Ref</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for m in plan.milestones %}
+            <tr class="milestone-row status-{{ m.status | lower | replace(' ', '-') }}">
+              <td>{{ frappe.utils.formatdate(m.due_date) }}</td>
+              <td>{{ m.amount_fmt }}</td>
+              <td><span class="badge badge-{{ 'green' if m.status == 'Paid' else 'red' if m.status == 'Overdue' else 'orange' }}">{{ m.status }}</span></td>
+              <td>{{ m.payment_ref or '—' }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="portal-empty">
+      <div class="empty-icon">💳</div>
+      <p>No payment plans found for your properties.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

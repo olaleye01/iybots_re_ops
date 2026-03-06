@@ -6,6 +6,7 @@
     "engine": "InnoDB",
     "field_order": [
         "opportunity",
+        "agent",
         "status",
         "column_break_1",
         "deal_value",
@@ -23,6 +24,15 @@
             "label": "Opportunity (Deal)",
             "options": "Opportunity",
             "reqd": 1
+        },
+        {
+            "fieldname": "agent",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Agent",
+            "options": "User",
+            "read_only": 1
         },
         {
             "default": "Draft",
@@ -81,21 +91,30 @@
     "owner": "Administrator",
     "permissions": [
         {
-            "read": 1,
-            "report": 1,
-            "role": "Sales User"
-        },
-        {
             "create": 1,
             "delete": 1,
             "email": 1,
             "export": 1,
+            "import": 1,
             "print": 1,
             "read": 1,
             "report": 1,
-            "role": "Sales Manager",
+            "role": "RE Admin",
             "share": 1,
             "write": 1
+        },
+        {
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "MD",
+            "write": 1
+        },
+        {
+            "read": 1,
+            "report": 1,
+            "role": "RE Agent"
         },
         {
             "create": 1,

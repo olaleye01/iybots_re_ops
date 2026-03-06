@@ -185,6 +185,63 @@ body,
 	border-color: #CBD5E1 !important;
 }
 
+/* ---- CHECKBOXES ---- */
+.frappe-control[data-fieldtype="Check"] .control-input,
+.frappe-control[data-fieldtype="Check"] {
+	display: flex !important;
+	align-items: center !important;
+	gap: 8px !important;
+}
+
+.frappe-control[data-fieldtype="Check"] input[type="checkbox"] {
+	appearance: none !important;
+	-webkit-appearance: none !important;
+	width: 18px !important;
+	height: 18px !important;
+	min-width: 18px !important;
+	border: 2px solid var(--border-color) !important;
+	border-radius: 4px !important;
+	background: #FFFFFF !important;
+	cursor: pointer !important;
+	position: relative !important;
+	transition: all 0.15s ease !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.frappe-control[data-fieldtype="Check"] input[type="checkbox"]:checked {
+	background: var(--primary) !important;
+	border-color: var(--primary) !important;
+}
+
+.frappe-control[data-fieldtype="Check"] input[type="checkbox"]:checked::after {
+	content: "" !important;
+	position: absolute !important;
+	left: 4px !important;
+	top: 1px !important;
+	width: 6px !important;
+	height: 10px !important;
+	border: 2px solid #FFFFFF !important;
+	border-top: none !important;
+	border-left: none !important;
+	transform: rotate(45deg) !important;
+	display: block !important;
+}
+
+.frappe-control[data-fieldtype="Check"] input[type="checkbox"]:focus {
+	outline: none !important;
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+.frappe-control[data-fieldtype="Check"] label {
+	font-size: 14px !important;
+	font-weight: 500 !important;
+	color: var(--text-color) !important;
+	cursor: pointer !important;
+	margin: 0 !important;
+	line-height: 1 !important;
+}
+
 /* ---- FORM INPUTS ---- */
 .form-control,
 .input-with-feedback,

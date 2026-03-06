@@ -1,0 +1,116 @@
+{
+    "actions": [],
+    "autoname": "format:DOC-{#####}",
+    "creation": "2026-03-06 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "client",
+        "document_type",
+        "uploaded_on",
+        "column_break_1",
+        "property",
+        "file",
+        "section_break_notes",
+        "notes"
+    ],
+    "fields": [
+        {
+            "fieldname": "client",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Client",
+            "options": "Client",
+            "reqd": 1
+        },
+        {
+            "fieldname": "document_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Document Type",
+            "options": "Contract\nAllocation Letter\nReceipt\nOther"
+        },
+        {
+            "default": "Today",
+            "fieldname": "uploaded_on",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Uploaded On"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "property",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Property",
+            "options": "Property"
+        },
+        {
+            "fieldname": "file",
+            "fieldtype": "Attach",
+            "label": "File",
+            "reqd": 1
+        },
+        {
+            "fieldname": "section_break_notes",
+            "fieldtype": "Section Break",
+            "label": "Notes"
+        },
+        {
+            "fieldname": "notes",
+            "fieldtype": "Small Text",
+            "label": "Notes"
+        }
+    ],
+    "links": [],
+    "modified": "2026-03-06 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "Iybots Real Estate Ops",
+    "name": "Client Document",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "RE Admin",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "read": 1,
+            "report": 1,
+            "role": "MD"
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "import": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "search_fields": "client,document_type,property",
+    "show_name_in_global_search": 1,
+    "sort_field": "uploaded_on",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}

@@ -94,24 +94,32 @@
     "permissions": [
         {
             "create": 1,
+            "delete": 1,
             "email": 1,
+            "export": 1,
+            "import": 1,
             "print": 1,
             "read": 1,
             "report": 1,
-            "role": "Sales User",
+            "role": "RE Admin",
             "share": 1,
             "write": 1
         },
         {
-            "create": 1,
-            "delete": 1,
-            "email": 1,
-            "export": 1,
-            "print": 1,
             "read": 1,
             "report": 1,
-            "role": "Sales Manager",
-            "share": 1,
+            "role": "MD"
+        },
+        {
+            "create": 1,
+            "read": 1,
+            "report": 1,
+            "role": "RE Agent"
+        },
+        {
+            "read": 1,
+            "report": 1,
+            "role": "HR",
             "write": 1
         },
         {
@@ -125,12 +133,6 @@
             "report": 1,
             "role": "System Manager",
             "share": 1,
-            "write": 1
-        },
-        {
-            "read": 1,
-            "report": 1,
-            "role": "HR Manager",
             "write": 1
         }
     ],

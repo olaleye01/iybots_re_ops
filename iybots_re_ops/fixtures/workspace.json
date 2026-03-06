@@ -13,6 +13,10 @@
         "parent_page": "",
         "public": 1,
         "hide_custom": 0,
+        "roles": [
+            {"role": "MD"},
+            {"role": "RE Admin"}
+        ],
         "links": [
             {
                 "dependencies": "",
@@ -90,6 +94,11 @@
         "parent_page": "",
         "public": 1,
         "hide_custom": 0,
+        "roles": [
+            {"role": "RE Agent"},
+            {"role": "RE Admin"},
+            {"role": "MD"}
+        ],
         "links": [
             {
                 "dependencies": "",
@@ -172,6 +181,11 @@
         "parent_page": "",
         "public": 1,
         "hide_custom": 0,
+        "roles": [
+            {"role": "RE Admin"},
+            {"role": "MD"},
+            {"role": "HR"}
+        ],
         "links": [
             {
                 "dependencies": "",

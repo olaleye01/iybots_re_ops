@@ -12,6 +12,10 @@
         "location",
         "developer",
         "listing_id",
+        "section_break_assignment",
+        "project",
+        "primary_client",
+        "assigned_agent",
         "section_break_pricing",
         "price",
         "column_break_price",
@@ -69,6 +73,34 @@
             "label": "Listing ID"
         },
         {
+            "fieldname": "section_break_assignment",
+            "fieldtype": "Section Break",
+            "label": "Assignment"
+        },
+        {
+            "fieldname": "project",
+            "fieldtype": "Link",
+            "in_list_view": 0,
+            "in_standard_filter": 1,
+            "label": "Estate Project",
+            "options": "Estate Project"
+        },
+        {
+            "fieldname": "primary_client",
+            "fieldtype": "Link",
+            "in_list_view": 0,
+            "in_standard_filter": 1,
+            "label": "Primary Client",
+            "options": "Client"
+        },
+        {
+            "fieldname": "assigned_agent",
+            "fieldtype": "Link",
+            "in_list_view": 0,
+            "label": "Assigned Agent",
+            "options": "User"
+        },
+        {
             "fieldname": "section_break_pricing",
             "fieldtype": "Section Break",
             "label": "Pricing"
@@ -123,16 +155,6 @@
     "permissions": [
         {
             "create": 1,
-            "email": 1,
-            "print": 1,
-            "read": 1,
-            "report": 1,
-            "role": "Sales User",
-            "share": 1,
-            "write": 1
-        },
-        {
-            "create": 1,
             "delete": 1,
             "email": 1,
             "export": 1,
@@ -140,9 +162,21 @@
             "print": 1,
             "read": 1,
             "report": 1,
-            "role": "Sales Manager",
+            "role": "RE Admin",
             "share": 1,
             "write": 1
+        },
+        {
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "MD"
+        },
+        {
+            "read": 1,
+            "report": 1,
+            "role": "RE Agent"
         },
         {
             "create": 1,

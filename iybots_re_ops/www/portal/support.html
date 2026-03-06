@@ -1,0 +1,35 @@
+{% extends "iybots_re_ops/templates/portal_base.html" %}
+{% block title %}Support{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+  <div class="portal-page-header">
+    <h1>Support</h1>
+    <p>We're here to help</p>
+  </div>
+
+  <div class="support-options">
+    <a href="https://wa.me/{{ whatsapp_number }}" target="_blank" class="support-card support-whatsapp">
+      <div class="support-icon">💬</div>
+      <div class="support-info">
+        <div class="support-title">WhatsApp</div>
+        <div class="support-desc">Chat with our support team</div>
+      </div>
+      <div class="support-arrow">›</div>
+    </a>
+
+    <a href="mailto:{{ support_email }}" class="support-card support-email">
+      <div class="support-icon">✉️</div>
+      <div class="support-info">
+        <div class="support-title">Email</div>
+        <div class="support-desc">{{ support_email }}</div>
+      </div>
+      <div class="support-arrow">›</div>
+    </a>
+  </div>
+
+  <div class="support-note">
+    <p>For urgent issues, please use WhatsApp. We typically respond within 24 hours on business days.</p>
+  </div>
+</div>
+{% endblock %}

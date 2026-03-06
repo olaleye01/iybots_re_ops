@@ -1,0 +1,110 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"aB1C2dE3fG\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Sales CRM</span>\",\"col\":12}},{\"id\":\"hI4J5kL6mN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pipeline Board\",\"col\":6}},{\"id\":\"oP7Q8rS9tU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Leads\",\"col\":6}},{\"id\":\"vW0X1yZ2aB\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quick Create</span>\",\"col\":12}},{\"id\":\"cD3E4fG5hI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Lead\",\"col\":4}},{\"id\":\"jK6L7mN8oP\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Opportunity\",\"col\":4}},{\"id\":\"qR9S0tU1vW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Property\",\"col\":4}},{\"id\":\"a0KUKVAUXi\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Commisions\",\"col\":4}}]",
+ "creation": "2026-03-06 12:54:04.606861",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "deal",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "RE Sales",
+ "links": [
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Pipeline",
+   "link_count": 0,
+   "link_to": "Opportunity",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Leads",
+   "link_count": 0,
+   "link_to": "Lead",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-03-06 15:00:49.131236",
+ "modified_by": "Administrator",
+ "module": "Iybots Real Estate Ops",
+ "name": "RE Sales",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "RE Agent"
+  },
+  {
+   "role": "RE Admin"
+  },
+  {
+   "role": "MD"
+  }
+ ],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "format": "{} Open Deals",
+   "label": "Pipeline Board",
+   "link_to": "Opportunity",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "format": "{} pending",
+   "label": "Commisions",
+   "link_to": "Commission Record",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "format": "{} New Leads",
+   "label": "Leads",
+   "link_to": "Lead",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "format": "",
+   "label": "New Lead",
+   "link_to": "Lead",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "format": "",
+   "label": "New Opportunity",
+   "link_to": "Opportunity",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "format": "",
+   "label": "New Property",
+   "link_to": "Property",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "RE Sales"
+}

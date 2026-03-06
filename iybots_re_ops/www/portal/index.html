@@ -1,0 +1,87 @@
+{% extends "iybots_re_ops/templates/portal_base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+  <div class="portal-greeting">
+    <h1>Welcome, {{ client.client_name.split()[0] }} 👋</h1>
+    <p class="portal-subtitle">Here's your property overview</p>
+  </div>
+
+  <!-- Summary cards -->
+  <div class="portal-cards">
+    <div class="portal-card {% if next_due and next_due.status == 'Overdue' %}card-danger{% elif next_due %}card-warning{% else %}card-success{% endif %}">
+      <div class="card-icon">📅</div>
+      <div class="card-body">
+        <div class="card-label">Next Payment Due</div>
+        {% if next_due %}
+          <div class="card-value">{{ next_due.amount_fmt }}</div>
+          <div class="card-sub">{{ frappe.utils.formatdate(next_due.due_date) }} · <span class="badge badge-{{ 'red' if next_due.status == 'Overdue' else 'orange' }}">{{ next_due.status }}</span></div>
+        {% else %}
+          <div class="card-value">—</div>
+          <div class="card-sub">No pending payments</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="portal-card">
+      <div class="card-icon">✅</div>
+      <div class="card-body">
+        <div class="card-label">Total Paid</div>
+        <div class="card-value">{{ total_paid }}</div>
+      </div>
+    </div>
+
+    <div class="portal-card">
+      <div class="card-icon">⏳</div>
+      <div class="card-body">
+        <div class="card-label">Outstanding</div>
+        <div class="card-value">{{ total_outstanding }}</div>
+      </div>
+    </div>
+
+    <div class="portal-card">
+      <div class="card-icon">🏠</div>
+      <div class="card-body">
+        <div class="card-label">My Units</div>
+        <div class="card-value">{{ property_count }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Latest progress update -->
+  {% if latest_update %}
+  <div class="portal-section">
+    <div class="section-header">
+      <h2>Latest Update</h2>
+      <a href="/portal/progress" class="section-link">View all →</a>
+    </div>
+    <a href="/portal/progress" class="update-card">
+      {% if latest_update.thumb %}
+        <img src="{{ latest_update.thumb }}" class="update-thumb" alt="Progress photo" />
+      {% endif %}
+      <div class="update-info">
+        <div class="update-title">{{ latest_update.title }}</div>
+        <div class="update-date">{{ frappe.utils.formatdate(latest_update.update_date) }}</div>
+        {% if latest_update.description %}
+          <div class="update-excerpt">{{ latest_update.description | striptags | truncate(100) }}</div>
+        {% endif %}
+      </div>
+    </a>
+  </div>
+  {% endif %}
+
+  <!-- Quick links -->
+  <div class="portal-section">
+    <h2>Quick Links</h2>
+    <div class="quick-links">
+      <a href="/portal/units" class="quick-link">🏠 My Units</a>
+      <a href="/portal/payments" class="quick-link">💳 Payments</a>
+      <a href="/portal/receipts" class="quick-link">🧾 Receipts</a>
+      <a href="/portal/progress" class="quick-link">📸 Progress</a>
+      <a href="/portal/documents" class="quick-link">📄 Documents</a>
+      <a href="/portal/support" class="quick-link">💬 Support</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

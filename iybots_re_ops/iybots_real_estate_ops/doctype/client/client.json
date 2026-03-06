@@ -1,0 +1,115 @@
+{
+    "actions": [],
+    "autoname": "format:CLT-{#####}",
+    "creation": "2026-03-06 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "client_name",
+        "email",
+        "phone",
+        "column_break_1",
+        "company",
+        "is_active",
+        "section_break_access",
+        "linked_user"
+    ],
+    "fields": [
+        {
+            "fieldname": "client_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Client Name",
+            "reqd": 1
+        },
+        {
+            "fieldname": "email",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Email",
+            "options": "Email"
+        },
+        {
+            "fieldname": "phone",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Phone"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Data",
+            "label": "Company"
+        },
+        {
+            "default": "1",
+            "fieldname": "is_active",
+            "fieldtype": "Check",
+            "label": "Is Active"
+        },
+        {
+            "fieldname": "section_break_access",
+            "fieldtype": "Section Break",
+            "label": "Portal Access"
+        },
+        {
+            "fieldname": "linked_user",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Portal User",
+            "options": "User",
+            "unique": 1
+        }
+    ],
+    "links": [],
+    "modified": "2026-03-06 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "Iybots Real Estate Ops",
+    "name": "Client",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "import": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "RE Admin",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "read": 1,
+            "report": 1,
+            "role": "MD"
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "import": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "search_fields": "client_name,email,phone",
+    "show_name_in_global_search": 1,
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "client_name",
+    "track_changes": 1
+}

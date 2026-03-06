@@ -1,0 +1,132 @@
+{
+    "actions": [],
+    "autoname": "format:PU-{#####}",
+    "creation": "2026-03-06 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "title",
+        "project",
+        "update_date",
+        "column_break_1",
+        "property",
+        "visibility_mode",
+        "section_break_content",
+        "description",
+        "section_break_photos",
+        "photos"
+    ],
+    "fields": [
+        {
+            "fieldname": "title",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Title",
+            "reqd": 1
+        },
+        {
+            "fieldname": "project",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Estate Project",
+            "options": "Estate Project",
+            "reqd": 1
+        },
+        {
+            "default": "Today",
+            "fieldname": "update_date",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "property",
+            "fieldtype": "Link",
+            "in_standard_filter": 1,
+            "label": "Property (optional)",
+            "options": "Property"
+        },
+        {
+            "default": "Project-wide",
+            "fieldname": "visibility_mode",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Visibility",
+            "options": "Project-wide\nPer-unit"
+        },
+        {
+            "fieldname": "section_break_content",
+            "fieldtype": "Section Break",
+            "label": "Update Content"
+        },
+        {
+            "fieldname": "description",
+            "fieldtype": "Text Editor",
+            "label": "Description"
+        },
+        {
+            "fieldname": "section_break_photos",
+            "fieldtype": "Section Break",
+            "label": "Photos"
+        },
+        {
+            "fieldname": "photos",
+            "fieldtype": "Table",
+            "label": "Photos",
+            "options": "Progress Photo"
+        }
+    ],
+    "links": [],
+    "modified": "2026-03-06 00:00:00.000000",
+    "modified_by": "Administrator",
+    "module": "Iybots Real Estate Ops",
+    "name": "Progress Update",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "RE Admin",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "read": 1,
+            "report": 1,
+            "role": "MD"
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "import": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "search_fields": "title,project",
+    "show_name_in_global_search": 1,
+    "sort_field": "update_date",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "title",
+    "track_changes": 1
+}

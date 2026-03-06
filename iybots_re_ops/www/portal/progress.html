@@ -1,0 +1,42 @@
+{% extends "iybots_re_ops/templates/portal_base.html" %}
+{% block title %}Progress Updates{% endblock %}
+
+{% block content %}
+<div class="portal-page">
+  <div class="portal-page-header">
+    <h1>Progress Updates</h1>
+  </div>
+
+  {% if updates %}
+    <div class="progress-feed">
+      {% for u in updates %}
+      <div class="progress-card">
+        <div class="progress-meta">
+          <span class="progress-date">{{ frappe.utils.formatdate(u.update_date) }}</span>
+          {% if u.project_name %}<span class="progress-project">{{ u.project_name }}</span>{% endif %}
+        </div>
+        <h2 class="progress-title">{{ u.title }}</h2>
+        {% if u.photos %}
+          <div class="progress-photos">
+            {% for photo in u.photos %}
+              <div class="progress-photo-wrapper">
+                <img src="{{ photo.image }}" alt="{{ photo.caption or u.title }}" class="progress-photo" loading="lazy" />
+                {% if photo.caption %}<div class="photo-caption">{{ photo.caption }}</div>{% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if u.description %}
+          <div class="progress-description">{{ u.description }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="portal-empty">
+      <div class="empty-icon">📸</div>
+      <p>No progress updates available yet.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
